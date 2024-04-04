@@ -18,21 +18,34 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center p-5 bg-red-500  border-b w-full">
-        <div
-          className={`w-full p-5 border rounded-xl  ${
-            estado ? "bg-green-300" : "bg-sky-100"
-          }`}
-        >
-          <p>{nombre}</p>
-          <p>{descripcion}</p>
-          <p>{prioridad}</p>
-          <p>{fechaFormateada}</p>
+      <div
+        className={`flex justify-between items-center p-5  border-b-2 shadow-sm mb-2 w-full rounded-lg  ${
+          estado ? "opacity-50 border border-black italic bg-white" : "bg-white"
+        }`}
+      >
+        <div className="flex-1 flex flex-col">
+          <div className="flex items-center">
+            <h2 className="text-xl font-semibold indent-1 mb-1">{nombre}</h2>
+            <span className="b-l border-1 mx-2 border-black h-5"></span>
+            <p
+              className={`text-lg font-semibold  ${
+                prioridad === "Baja" ? "text-green-700" : ""
+              } ${prioridad === "Media" ? "text-amber-500" : ""} ${
+                prioridad === "Alta" ? "text-red-700" : ""
+              }`}
+            >
+              {prioridad}
+            </p>
+            <span className="b-l border-1 mx-2 border-black h-5"></span>
+            <p className="text-md font-semibold">{fechaFormateada}</p>
+          </div>
+
+          <p className="text-sm ">{descripcion}</p>
         </div>
         {/* 
         TODO: Mejorar el diseño del menu de tarea 
         */}
-        <div className="flex w-52 ml-5 gap-1 h-28 justify-between">
+        <div className="flex w-[200px] ml-5 gap-1 h-28 justify-between">
           {menuVisible ? (
             <div
               className="relative w-full -top-3 flex items-center my-auto flex-col  gap-2  rounded-xl p-2 border-gray-800 border shadow-lg bg-gray-100"

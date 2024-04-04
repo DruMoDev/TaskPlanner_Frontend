@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import useProyectos from "../hooks/useProyectos";
 import {
   Button,
@@ -63,6 +62,14 @@ const Tareas = () => {
       tareasOrdenadas = [...tareas].sort((a, b) =>
         a.estado === b.estado ? 0 : a.estado ? 1 : -1
       );
+    } else if (opcionOrden === "prioridad") {
+      tareasOrdenadas = [...tareas].sort((a, b) => {
+        const prioridadA = a.prioridad;
+        const prioridadB = b.prioridad;
+        // Asigna un valor numérico a cada prioridad para poder compararlas
+        const prioridadValues = { "Baja": 1, "Media": 2, "Alta": 3 };
+        return prioridadValues[prioridadA] - prioridadValues[prioridadB];
+      });
     }
     setTareasOrdenadas(tareasOrdenadas);
   }, [tareas, opcionOrden]);
@@ -229,6 +236,7 @@ const Tareas = () => {
           >
             <option value="fecha">Fecha de Entrega</option>
             <option value="estado">Estado</option>
+            <option value="prioridad">Prioridad</option>
           </select>
         </div>
         <button

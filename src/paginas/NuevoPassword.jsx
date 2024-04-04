@@ -21,6 +21,7 @@ const NuevoPassword = () => {
           msg: error.response.data.msg,
           error: true,
         });
+        
       }
     };
     comprobarToken();
