@@ -48,13 +48,11 @@ const Login = () => {
       {msg && <Alerta alerta={alerta} />}
       <form
         className="my-10 bg-white shadow rounded-lg p-10"
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="email"
-          >
+            htmlFor="email">
             Email
           </label>
           <input
@@ -70,8 +68,7 @@ const Login = () => {
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="password"
-          >
+            htmlFor="password">
             Password
           </label>
           <input
@@ -94,14 +91,12 @@ const Login = () => {
       <nav className="xl:flex xl:justify-between">
         <Link
           to={"registrar"}
-          className="block text-center hover:text-sky-600 my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center hover:text-sky-600 my-5 text-slate-500 uppercase text-sm font-bold">
           ¿No tienes una cuenta? Registrate
         </Link>
         <Link
           to={"olvide-password"}
-          className="block text-center hover:text-sky-600 my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center hover:text-sky-600 my-5 text-slate-500 uppercase text-sm font-bold">
           Olvide mi password
         </Link>
       </nav>

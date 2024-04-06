@@ -1,23 +1,14 @@
-import { useLocation } from "react-router-dom";
 import PreviewProyecto from "../components/PreviewProyecto";
 import useProyectos from "../hooks/useProyectos";
-import useTareas from "../hooks/useTareas";
 
 const Proyectos = () => {
-  const { proyectos, setProyecto, proyecto, setColaborador } = useProyectos();
-  const { setTareas } = useTareas();
-  const location = useLocation();
-
-  // if (location.pathname === "/proyectos" && proyecto?.nombre !== undefined) {
-  //   setProyecto({});
-  //   setColaborador({})
-  //   setTareas([]);
-  // }
+  const { proyectos } = useProyectos();
 
   return (
     <>
-    
-      <h1 className="lg:text-4xl text-2xl font-black">Proyectos</h1>
+      <h1 className="lg:text-4xl text-2xl font-black lg:ml-0 ml-5">
+        Proyectos
+      </h1>
       <div className="mt-10 flex flex-col gap-5 min-h-[500px]">
         {proyectos.length ? (
           proyectos.map((proyecto, index) => (
@@ -33,7 +24,6 @@ const Proyectos = () => {
           </h4>
         )}
       </div>
-    
     </>
   );
 };

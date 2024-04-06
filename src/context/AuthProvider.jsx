@@ -6,10 +6,19 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1450);
   const [iniciales, setIniciales] = useState("");
   const [cargando, setCargando] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const updateMedia = () => {
+      setIsDesktop(window.innerWidth > 1450);
+    };
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   useEffect(() => {
     const autenticarUsuario = async () => {
@@ -56,7 +65,8 @@ const AuthProvider = ({ children }) => {
         setAuth,
         auth,
         cargando,
-        iniciales
+        iniciales,
+        isDesktop
       }}
     >
       {children}

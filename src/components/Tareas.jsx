@@ -13,11 +13,12 @@ import Alerta from "./Alerta";
 import Tarea from "./Tarea";
 import formatearFecha from "../helpers/formatearFecha";
 import useTareas from "../hooks/useTareas";
-import { toast } from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 const Tareas = () => {
   const { proyecto, mostrarAlerta, alerta } = useProyectos();
   const { crearTarea, eliminarTarea, tareas } = useTareas();
+  const { isDesktop } = useAuth();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [nombre, setNombre] = useState("");
@@ -67,7 +68,7 @@ const Tareas = () => {
         const prioridadA = a.prioridad;
         const prioridadB = b.prioridad;
         // Asigna un valor numérico a cada prioridad para poder compararlas
-        const prioridadValues = { "Baja": 1, "Media": 2, "Alta": 3 };
+        const prioridadValues = { Baja: 1, Media: 2, Alta: 3 };
         return prioridadValues[prioridadA] - prioridadValues[prioridadB];
       });
     }
@@ -120,8 +121,7 @@ const Tareas = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="5xl"
-        backdrop="blur"
-      >
+        backdrop="blur">
         <ModalContent>
           {(onClose) => (
             <>
@@ -134,8 +134,7 @@ const Tareas = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="nombre"
-                    >
+                      htmlFor="nombre">
                       Nombre Tarea
                     </label>
                     <input
@@ -153,8 +152,7 @@ const Tareas = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="descripcion"
-                    >
+                      htmlFor="descripcion">
                       Descripcion de la Tarea
                     </label>
                     <textarea
@@ -171,8 +169,7 @@ const Tareas = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="fecha-entrega"
-                    >
+                      htmlFor="fecha-entrega">
                       Fecha de Entrega{" "}
                     </label>
                     <input
@@ -189,8 +186,7 @@ const Tareas = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="prioridad"
-                    >
+                      htmlFor="prioridad">
                       Prioridad{" "}
                     </label>
                     <select
@@ -199,8 +195,7 @@ const Tareas = () => {
                       value={prioridad}
                       onChange={(e) => {
                         setPrioridad(e.target.value);
-                      }}
-                    >
+                      }}>
                       <option value="Baja">Baja</option>
                       <option value="Media">Media</option>
                       <option value="Alta">Alta</option>
@@ -216,8 +211,7 @@ const Tareas = () => {
                   color="primary"
                   onPress={() => {
                     handleCrear();
-                  }}
-                >
+                  }}>
                   Crear
                 </Button>
               </ModalFooter>
@@ -225,34 +219,37 @@ const Tareas = () => {
           )}
         </ModalContent>
       </Modal>
-      <div className="flex justify-between my-10 ">
-        <h1 className="text-4xl font-black text-sky-700">Tareas</h1>
-        <div className="ml-5 flex gap-5 justify-center items-center">
-          <h2 className="font-semibold text-xl">Ordenar por:</h2>
+
+      <div className="flex justify-between my-10 w-[380px] mx-auto lg:w-full">
+        <h1 className="lg:text-4xl text-2xl font-black text-sky-700 my-auto">
+          Tareas
+        </h1>
+
+        <div className="lg:ml-5 flex gap-5 justify-center items-center">
+          {isDesktop && <h2 className="font-semibold text-xl">Ordenar por:</h2>}
           <select
             className="border-2 border-gray-300 rounded-md py-1 pr-3 pl-1  text-gray-700 focus:outline-none focus:border-sky-500"
             value={opcionOrden}
-            onChange={(e) => setOpcionOrden(e.target.value)}
-          >
+            onChange={(e) => setOpcionOrden(e.target.value)}>
             <option value="fecha">Fecha de Entrega</option>
             <option value="estado">Estado</option>
             <option value="prioridad">Prioridad</option>
           </select>
         </div>
+
         <button
-          className="bg-sky-600 text-xl w-24 h-12 font-semiboldbold flex text-white items-center justify-center uppercase font-bold hover:bg-sky-700 transition-colors rounded-full  mr-10"
-          onClick={onOpen}
-        >
+          className="bg-sky-600 px-2 lg:px-6 h-12 font-semiboldbold flex text-white items-center justify-center uppercase font-bold hover:bg-sky-700 transition-colors rounded-full  lg:mr-10 "
+          onClick={onOpen}>
           <svg
             viewBox="0 0 1024 1024"
             fill="currentColor"
-            height="2em"
-            width="2em"
-          >
+            height={`${isDesktop ? "2rem" : "1.6rem"}`}
+            width="2em">
             <path d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0042 42h216v494zM544 472c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v108H372c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h108v108c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V644h108c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H544V472z" />
           </svg>
         </button>
       </div>
+
       <div className="flex min-h-32 flex-col w-full">
         {tareasOrdenadas.length !== 0 ? (
           tareasOrdenadas.map((tarea) => (

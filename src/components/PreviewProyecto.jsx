@@ -11,8 +11,8 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import formatearFecha from "../helpers/formatearFecha";
 import useAuth from "../hooks/useAuth";
+import formFecha from "../helpers/formFecha";
 
 const PreviewProyecto = ({ proyecto, index }) => {
   const { nombre, _id, cliente } = proyecto;
@@ -23,7 +23,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
     setProyecto,
     proyecto: proyectoState,
   } = useProyectos();
-  const { auth } = useAuth();
+  const { auth, isDesktop } = useAuth();
   const {
     nombre: nombreState,
     descripcion: descripcionState,
@@ -35,13 +35,6 @@ const PreviewProyecto = ({ proyecto, index }) => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const creador = auth._id === proyecto.creador;
-
-  const formFecha = (fecha) => {
-    const partesFecha = formatearFecha(fecha).split("/");
-    const fechaReordenada = [partesFecha[2], partesFecha[1], partesFecha[0]];
-    const fechaEntregaFinal = fechaReordenada.join("-");
-    return fechaEntregaFinal;
-  };
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
@@ -196,6 +189,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
           )}
         </ModalContent>
       </Modal>
+
       <div className="flex bg-white lg:px-5 pl-5 py-3 mx-4 lg:mx-0">
         <div className="flex-grow flex items-center">
           <p className="font-bold lg:mr-14 mr-2 lg:text-2xl self-start text-sky-600">
@@ -205,7 +199,9 @@ const PreviewProyecto = ({ proyecto, index }) => {
             <div className="flex lg:gap-5 gap-2 items-center ">
               <p
                 className={`lg:text-3xl text-2xl font-bold cursor-pointer hover:text-sky-600 transition-all ease-in  ${
-                  nombre.length > 13 ? "truncate max-w-[150px] lg:max-w-[1000px]" : ""
+                  nombre.length > 13
+                    ? "truncate max-w-[150px] lg:max-w-[1000px]"
+                    : ""
                 }`}
                 onClick={handleVerMas}>
                 {nombre}
@@ -217,7 +213,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
                 {creador ? "Manager" : "Colaborador"}
               </p>
             </div>
-            <p className="gl:text-medium text-sm font-semibold text-default-500">
+            <p className="lg:text-lg text-sm font-semibold text-default-500">
               {cliente}
             </p>
           </div>
@@ -274,8 +270,8 @@ const PreviewProyecto = ({ proyecto, index }) => {
               className="mr-1 lg:mr-0"
               viewBox="0 0 21 21"
               fill="currentColor"
-              height="2rem"
-              width="1.5rem">
+              height={`${isDesktop ? "2.2rem" : "2rem"}`}
+              widths={`${isDesktop ? "2.2rem" : "1.5rem"}`}>
               <g fill="currentColor" fillRule="evenodd">
                 <path d="M11.5 10.5 A1 1 0 0 1 10.5 11.5 A1 1 0 0 1 9.5 10.5 A1 1 0 0 1 11.5 10.5 z" />
                 <path d="M11.5 5.5 A1 1 0 0 1 10.5 6.5 A1 1 0 0 1 9.5 5.5 A1 1 0 0 1 11.5 5.5 z" />

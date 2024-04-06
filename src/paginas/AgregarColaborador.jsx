@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const AgregarColaborador = () => {
   const [email, setEmail] = useState("");
-  const { buscarColaborador, colaborador, agregarColaborador, proyecto } =
+  const { buscarColaborador, colaborador, agregarColaborador } =
     useProyectos();
   const { nombre } = colaborador;
 
@@ -40,13 +40,11 @@ const AgregarColaborador = () => {
       <div className="mt-10 flex justify-center items-center">
         <form
           className="bg-white py-10 px-5 w-1/2 rounded-lg shadow flex flex-col"
-          onSubmit={handleSubmit}
-        >
+          onSubmit={handleSubmit}>
           <div className="mb-7">
             <label
               className="text-gray-700 uppercase font-bold text-sm"
-              htmlFor="email"
-            >
+              htmlFor="email">
               Buscar Colaborador{" "}
             </label>
             <input
@@ -65,8 +63,7 @@ const AgregarColaborador = () => {
                 ? "bg-slate-300 hover:bg-slate-400 cursor-pointer rounded border border-black shadow-lg "
                 : ""
             }`}
-            onClick={nombre && handleAgregarColaborador}
-          >
+            onClick={nombre && handleAgregarColaborador}>
             {nombre && nombre}
           </button>
 

@@ -41,13 +41,11 @@ const OlvidePassword = () => {
 
       <form
         className="my-10 bg-white shadow rounded-lg p-10"
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="email"
-          >
+            htmlFor="email">
             Email
           </label>
           <input
@@ -70,14 +68,12 @@ const OlvidePassword = () => {
       <nav className="xl:flex xl:justify-between">
         <Link
           to={"/"}
-          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold">
           ¿Ya tienes una cuenta? Inicia sesión
         </Link>
         <Link
           to={"registrar"}
-          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold">
           ¿No tienes una cuenta? Registrate
         </Link>
       </nav>

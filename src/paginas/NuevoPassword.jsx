@@ -21,7 +21,6 @@ const NuevoPassword = () => {
           msg: error.response.data.msg,
           error: true,
         });
-        
       }
     };
     comprobarToken();
@@ -59,13 +58,11 @@ const NuevoPassword = () => {
       {tokenValido && (
         <form
           className="my-10 bg-white shadow rounded-lg p-10"
-          onSubmit={handleSubmit}
-        >
+          onSubmit={handleSubmit}>
           <div className="my-5 ">
             <label
               className="uppercase text-gray-600 block text-xl font-bold"
-              htmlFor="password"
-            >
+              htmlFor="password">
               Nuevo Password
             </label>
             <input
@@ -89,8 +86,7 @@ const NuevoPassword = () => {
       {passwordModificado && (
         <Link
           to={"/"}
-          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold">
           Inicia sesión
         </Link>
       )}

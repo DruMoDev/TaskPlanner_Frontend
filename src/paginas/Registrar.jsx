@@ -42,10 +42,10 @@ const Registrar = () => {
       });
       setAlerta({ msg: data.msg, error: false });
 
-      setNombre("")
-      setEmail("")
-      setPassword("")
-      setRepetirPassword("")
+      setNombre("");
+      setEmail("");
+      setPassword("");
+      setRepetirPassword("");
     } catch (error) {
       setAlerta({ msg: error.response.data.msg, error: true });
     }
@@ -63,13 +63,11 @@ const Registrar = () => {
       {msg && <Alerta alerta={alerta} />}
       <form
         className="my-10 bg-white shadow rounded-lg p-10"
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="nombre"
-          >
+            htmlFor="nombre">
             nombre
           </label>
           <input
@@ -85,8 +83,7 @@ const Registrar = () => {
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="email"
-          >
+            htmlFor="email">
             Email
           </label>
           <input
@@ -102,8 +99,7 @@ const Registrar = () => {
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="password"
-          >
+            htmlFor="password">
             Password
           </label>
           <input
@@ -119,8 +115,7 @@ const Registrar = () => {
         <div className="my-5 ">
           <label
             className="uppercase text-gray-600 block text-xl font-bold"
-            htmlFor="password2"
-          >
+            htmlFor="password2">
             Repetir Password
           </label>
           <input
@@ -143,14 +138,12 @@ const Registrar = () => {
       <nav className="xl:flex xl:justify-between">
         <Link
           to={"/"}
-          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold">
           ¿Ya tienes una cuenta? Inicia sesión
         </Link>
         <Link
           to={"/olvide-password"}
-          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold"
-        >
+          className="block text-center my-5 text-slate-500 uppercase text-sm font-bold">
           Olvide mi password
         </Link>
       </nav>

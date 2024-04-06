@@ -14,6 +14,7 @@ import { Progress } from "@nextui-org/react";
 import progressBar from "../helpers/progressBar";
 import useTareas from "../hooks/useTareas";
 import useAuth from "../hooks/useAuth";
+import formFecha from "../helpers/formFecha";
 
 const ProyectoColaborador = () => {
   const { proyecto, handleEditarProyecto, setProyecto } = useProyectos();
@@ -40,13 +41,6 @@ const ProyectoColaborador = () => {
     }
   }
 
-  const formFecha = (fecha) => {
-    const partesFecha = formatearFecha(fecha).split("/");
-    const fechaReordenada = [partesFecha[2], partesFecha[1], partesFecha[0]];
-    const fechaEntregaFinal = fechaReordenada.join("-");
-    return fechaEntregaFinal;
-  };
-
   const handleEditar = () => {
     const datos = {
       nombre,
@@ -64,8 +58,7 @@ const ProyectoColaborador = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="5xl"
-        backdrop="blur"
-      >
+        backdrop="blur">
         <ModalContent>
           {(onClose) => (
             <>
@@ -77,8 +70,7 @@ const ProyectoColaborador = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="nombre"
-                    >
+                      htmlFor="nombre">
                       Nombre Proyecto
                     </label>
                     <input
@@ -97,8 +89,7 @@ const ProyectoColaborador = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="descripcion"
-                    >
+                      htmlFor="descripcion">
                       Descripcion Proyecto
                     </label>
                     <textarea
@@ -119,8 +110,7 @@ const ProyectoColaborador = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="fecha-entrega"
-                    >
+                      htmlFor="fecha-entrega">
                       Fecha de Entrega{" "}
                     </label>
                     <input
@@ -142,8 +132,7 @@ const ProyectoColaborador = () => {
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
-                      htmlFor="cliente"
-                    >
+                      htmlFor="cliente">
                       Nombre del Cliente
                     </label>
                     <input
@@ -168,8 +157,7 @@ const ProyectoColaborador = () => {
                   color="primary"
                   onPress={() => {
                     handleEditar(), onClose();
-                  }}
-                >
+                  }}>
                   Confirmar
                 </Button>
               </ModalFooter>
