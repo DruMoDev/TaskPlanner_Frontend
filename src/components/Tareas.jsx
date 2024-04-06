@@ -120,8 +120,9 @@ const Tareas = () => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="5xl"
-        backdrop="blur">
+        size={`${isDesktop ? "5xl" : "xs"}`}
+        backdrop="blur"
+        placement="center">
         <ModalContent>
           {(onClose) => (
             <>
@@ -153,12 +154,12 @@ const Tareas = () => {
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
                       htmlFor="descripcion">
-                      Descripcion de la Tarea
+                      Descripcion de la tarea
                     </label>
                     <textarea
                       id="descripcion"
                       className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                      placeholder="Descripcion del Proyecto"
+                      placeholder="Descripcion de la tarea..."
                       value={descripcion}
                       onChange={(e) => {
                         setDescripcion(e.target.value);
@@ -220,7 +221,7 @@ const Tareas = () => {
         </ModalContent>
       </Modal>
 
-      <div className="flex justify-between my-10 w-[380px] mx-auto lg:w-full">
+      <div className="flex justify-between my-10 w-11/12 mx-auto lg:w-full">
         <h1 className="lg:text-4xl text-2xl font-black text-sky-700 my-auto">
           Tareas
         </h1>

@@ -10,7 +10,6 @@ const Header = () => {
   const { setTareas } = useTareas();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(menuOpen);
 
   const handleCerrarSesion = () => {
     localStorage.removeItem("token");
