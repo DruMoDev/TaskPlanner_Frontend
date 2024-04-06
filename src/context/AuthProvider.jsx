@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
+  const [iniciales, setIniciales] = useState("");
   const [cargando, setCargando] = useState(true);
 
   const navigate = useNavigate();
@@ -28,6 +29,17 @@ const AuthProvider = ({ children }) => {
       try {
         const { data } = await clienteAxios("/usuarios/perfil", config);
         setAuth(data);
+
+        const palabras = data.nombre.split(" ");
+        // Obtener la primera palabra
+        const primeraPalabra = palabras[0];
+        // Obtener la segunda palabra si existe
+        const segundaPalabra = palabras.length > 1 ? palabras[1] : "";
+        // Obtener las iniciales de ambas palabras
+        setIniciales(
+          primeraPalabra.charAt(0) +
+            (segundaPalabra ? segundaPalabra.charAt(0) : "")
+        );
         navigate("/proyectos");
       } catch (error) {
         console.log(error);
@@ -37,12 +49,14 @@ const AuthProvider = ({ children }) => {
     autenticarUsuario();
   }, []);
 
+
   return (
     <AuthContext.Provider
       value={{
         setAuth,
         auth,
         cargando,
+        iniciales
       }}
     >
       {children}

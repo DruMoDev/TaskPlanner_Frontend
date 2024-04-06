@@ -16,8 +16,9 @@ const Proyectos = () => {
 
   return (
     <>
-      <h1 className="text-4xl font-black  ">Proyectos</h1>
-      <div className="  mt-10  flex flex-col gap-5 min-h-[500px]">
+    
+      <h1 className="lg:text-4xl text-2xl font-black">Proyectos</h1>
+      <div className="mt-10 flex flex-col gap-5 min-h-[500px]">
         {proyectos.length ? (
           proyectos.map((proyecto, index) => (
             <PreviewProyecto
@@ -32,6 +33,7 @@ const Proyectos = () => {
           </h4>
         )}
       </div>
+    
     </>
   );
 };

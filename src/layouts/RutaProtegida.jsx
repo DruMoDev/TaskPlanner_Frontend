@@ -10,11 +10,11 @@ const RutaProtegida = () => {
   return (
     <>
       {auth._id ? (
-        <div className="bg-gray-100">
+        <div className="font-sans">
           <Header />
           <div className="md:flex md:min-h-screen">
-            <Sidebar />
-            <main className="flex-1 p-10">
+            {/* <Sidebar /> */}
+            <main className="container mx-auto pt-10">
               <Outlet />
             </main>
           </div>

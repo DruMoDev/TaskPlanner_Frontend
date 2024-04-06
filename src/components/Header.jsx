@@ -1,11 +1,16 @@
+import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { useState } from "react";
 import useProyectos from "../hooks/useProyectos";
+import useTareas from "../hooks/useTareas";
 
 const Header = () => {
-  const { proyecto } = useProyectos();
-  let path;
-  if (window.location.pathname.includes("proyectos")) {
-    path = "Proyectos";
-  }
+  const { iniciales } = useAuth();
+  const { setProyecto, setColaborador } = useProyectos();
+  const { setTareas } = useTareas();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  console.log(menuOpen);
 
   const handleCerrarSesion = () => {
     localStorage.removeItem("token");
@@ -13,59 +18,45 @@ const Header = () => {
   };
 
   return (
-    <header className="px-4 py-5 bg-white border-b">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-center">
-          <h2 className="text-4xl text-sky-600 font-black text-center">
-            UpTask
-          </h2>
-          <span className="text-2xl text-sky-600 font-black text-center">
-            |
-          </span>
-          <h2 className="text-3xl text-sky-600 font-black text-center">
-            Dashboard
-          </h2>
+    <header className="py-2.5 bg-white border-b w-full">
+      <div className="flex items-center mx-auto w-11/12 relative justify-between">
+        <Link
+          className="text-xl lg:text-3xl text-sky-600 font-black text-center"
+          to={"/proyectos"}>
+          UpTask
+        </Link>
 
-          {path && (
-            <>
-              <span className="text-2xl text-sky-600 font-black text-center">
-                |
-              </span>
-              <h2 className="text-2xl text-sky-600 font-black text-center">
-                {path}
-              </h2>
-            </>
-          )}
-          {proyecto.nombre && (
-            <>
-              <span className="text-2xl text-sky-600 font-black text-center">
-                |
-              </span>
-              <h2 className="text-2xl text-sky-600 font-black text-center">
-                {proyecto.nombre}
-              </h2>
-            </>
-          )}
+        <Link
+          onClick={() => {
+            setProyecto({});
+            setColaborador({});
+            setTareas([]);
+          }}
+          to="crear-proyectos"
+          className="bg-sky-700 hover:bg-sky-600  transition-all px-3 py-2.5 text-white uppercase font-bold text-center rounded text-sm lg:px-10 lg:py-3 lg:tracking-wide">
+          Crear{" "}
+        </Link>
+
+        <div
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="rounded-full bg-purple-600 h-6 w-6 p-4 text-sm items-center flex justify-center  lg:text-base lg:h-10 lg:w-10 font-bold text-white hover:opacity-80 cursor-pointer transition-all">
+          {iniciales}
         </div>
-        {/* 
-        TODO: Darle funcionalidad al boton de buscar proyectos
-         */}
-        <div className="flex gap-10">
-          <input
-            type="search"
-            placeholder="Buscar Proyecto"
-            className="rounded-lg w-80 block p-2 border"
-          />
-          <div className="flex items-center gap-4">
+        {menuOpen && (
+          <div
+            onMouseLeave={() => setMenuOpen(false)}
+            className="absolute font-semibold  top-11 right-2 lg:right-5 lg:top-14 bg-white border border-gray-200 shadow-lg rounded-lg flex flex-col text-sm lg:text-lg">
+            <button className="hover:bg-slate-200 transition-all px-3 rounded-t py-2 border-b">
+              Editar Perfil
+            </button>
             <button
               type="button"
-              className="text-white text-sm bg-sky-600 hover:bg-sky-700 transition-all ease-in p-3 rounded-md uppercase font-bold "
-              onClick={handleCerrarSesion}
-            >
+              className="hover:bg-sky-600 hover:text-white transition-all px-3 py-2 rounded-b"
+              onClick={handleCerrarSesion}>
               Cerrar Sessión
             </button>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );
