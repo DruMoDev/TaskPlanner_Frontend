@@ -81,6 +81,9 @@ const AgregarColaborador = () => {
           <div></div>
         </form>
         <button
+          onClick={() => {
+            window.history.back();
+          }}
           className="bg-slate-600 text-white hover:bg-slate-700 transition-all shadow-md border px-10 rounded mt-5 font-bold uppercase py-2">
           Volver
         </button>

@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AgregarColaborador from "./paginas/AgregarColaborador";
 import ProyectoColaborador from "./paginas/ProyectoColaborador";
+import EditarPerfil from "./paginas/EditarPerfil";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
                       path="agregar-colaborador"
                       element={<AgregarColaborador />}
                     />
+                    <Route path="editar-perfil" element={<EditarPerfil />} />
                   </Route>
                 </Routes>
               </TareasProvider>

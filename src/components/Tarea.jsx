@@ -21,6 +21,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
 
   return (
     <>
+    {/* TODO: Hacer que funciona el eliminar tarea en el movil, supongo q no va por el windowsalert? */}
       <div
         className={`flex justify-between items-center py-5 pl-5 lg:pr-5  border-b-2 shadow-sm mb-2 mx-auto rounded-lg lg:w-full w-11/12 ${
           estado ? "opacity-50 border border-black italic bg-white" : "bg-white"

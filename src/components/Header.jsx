@@ -5,7 +5,7 @@ import useProyectos from "../hooks/useProyectos";
 import useTareas from "../hooks/useTareas";
 
 const Header = () => {
-  const { iniciales } = useAuth();
+  const { iniciales, editarPerfil } = useAuth();
   const { setProyecto, setColaborador } = useProyectos();
   const { setTareas } = useTareas();
 
@@ -32,8 +32,8 @@ const Header = () => {
             setTareas([]);
           }}
           to="crear-proyectos"
-          className="bg-sky-700 hover:bg-sky-600  transition-all px-3 py-2.5 text-white uppercase font-bold text-center rounded text-sm lg:px-10 lg:py-3 lg:tracking-wide">
-          Crear{" "}
+          className="bg-sky-700 hover:bg-sky-600 transition-all px-3 py-2.5 text-white uppercase font-bold text-center rounded text-sm lg:px-10 lg:py-3 lg:tracking-wide">
+          Crear
         </Link>
 
         <div
@@ -44,15 +44,17 @@ const Header = () => {
         {menuOpen && (
           <div
             onMouseLeave={() => setMenuOpen(false)}
-            className="absolute font-semibold  top-11 right-2 lg:right-5 lg:top-14 bg-white border border-gray-200 shadow-lg rounded-lg flex flex-col text-sm lg:text-lg">
-            <button className="hover:bg-slate-200 transition-all px-3 rounded-t py-2 border-b">
+            className="absolute font-semibold top-11 right-2 lg:right-5 lg:top-14 bg-white border border-gray-200 shadow-lg rounded-lg flex flex-col text-sm lg:text-lg">
+            <Link
+              className="hover:bg-slate-200 transition-all px-3 rounded-t py-2 border-b"
+              to="editar-perfil">
               Editar Perfil
-            </button>
+            </Link>
             <button
               type="button"
               className="hover:bg-sky-600 hover:text-white transition-all px-3 py-2 rounded-b"
               onClick={handleCerrarSesion}>
-              Cerrar Sessión
+              Cerrar Sesión
             </button>
           </div>
         )}
@@ -60,4 +62,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;

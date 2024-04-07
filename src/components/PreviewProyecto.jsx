@@ -207,7 +207,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
                 {nombre}
               </p>
               <p
-                className={` px-2 lg:px-3 rounded-full border-black border font-semibold py-1  lg:text-base text-[9px] text-center opacity-80 ${
+                className={` px-2 lg:px-3 rounded-full border-black border font-semibold py-1  lg:text-base text-[9px] text-center ${
                   creador ? "bg-purple-400" : "bg-amber-300"
                 }`}>
                 {creador ? "Manager" : "Colaborador"}
