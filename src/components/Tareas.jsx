@@ -131,7 +131,7 @@ const Tareas = () => {
               </ModalHeader>
               <ModalBody className="w-full">
                 {msg && <Alerta alerta={alerta} />}
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow">
+                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"

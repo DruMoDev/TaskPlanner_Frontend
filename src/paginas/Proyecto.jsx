@@ -79,7 +79,8 @@ const Proyecto = () => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="5xl"
+        size={`${isDesktop ? "5xl" : "xs"}`}
+        placement="center"
         backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -88,7 +89,7 @@ const Proyecto = () => {
                 Editar Proyecto{" "}
               </ModalHeader>
               <ModalBody className="w-full">
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow">
+                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
@@ -265,18 +266,16 @@ const Proyecto = () => {
             </div>
             <div className="mb-5 text-xl lg:text-2xl font-light">
               <p>
-                Cliente:{" "}
-                <span className="font-bold">{cliente}</span>
+                Cliente: <span className="font-bold">{cliente}</span>
               </p>
             </div>
             <div className="mb-5 text-xl lg:text-2xl font-light">
               <p>
-                Descripción:{" "}
-                <span className="font-bold">{descripcion}</span>
+                Descripción: <span className="font-bold">{descripcion}</span>
               </p>
-            </div>            
+            </div>
             <div className="mb-5 text-xl lg:text-2xl font-light">
-              <p >
+              <p>
                 Fecha de entrega:{" "}
                 <span className="font-bold">
                   {fechaEntrega && formatearFecha(fechaEntrega)}

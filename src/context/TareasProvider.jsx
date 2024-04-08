@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import clienteAxios from "../config/clienteAxios";
+import { toast } from "react-toastify";
 
 const TareasContext = createContext();
 
@@ -71,6 +72,29 @@ const TareasProvider = ({ children }) => {
     }
   };
 
+  const editarTarea = async (id, datos) => {
+    try {
+      const { data } = await clienteAxios.put(`/tareas/${id}`, datos, config);
+      const tareasActualizadas = tareas.map((tarea) => {
+        if (tarea._id === id) {
+          return {
+            ...tarea,
+            nombre: data.nombre,
+            prioridad: data.prioridad,
+            descripcion: data.descripcion,
+            fecha: data.fecha,
+          };
+        } else {
+          return tarea;
+        }
+      });
+      setTareas([...tareasActualizadas]);
+      toast.success("Tarea editada correctamente");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <TareasContext.Provider
       value={{
@@ -79,9 +103,9 @@ const TareasProvider = ({ children }) => {
         crearTarea,
         eliminarTarea,
         completarTarea,
-        setTareas
-      }}
-    >
+        setTareas,
+        editarTarea,
+      }}>
       {children}
     </TareasContext.Provider>
   );

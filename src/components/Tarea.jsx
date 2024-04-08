@@ -1,18 +1,44 @@
 import formatearFecha from "../helpers/formatearFecha";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import useAuth from "../hooks/useAuth";
 import useTareas from "../hooks/useTareas";
 import { useState } from "react";
+import formFecha from "../helpers/formFecha";
 
 const Tarea = ({ tarea, handleEliminarTarea }) => {
-  const { nombre, descripcion, prioridad, fechaEntrega, estado, _id } = tarea;
-  const { completarTarea } = useTareas();
+  const [nombre, setNombre] = useState(tarea.nombre);
+  const [descripcion, setDescripcion] = useState(tarea.descripcion);
+  const [prioridad, setPrioridad] = useState(tarea.prioridad);
+  const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
+  const [estado, setEstado] = useState(tarea.estado);
+  const [_id, setId] = useState(tarea._id);
+  const { completarTarea, editarTarea } = useTareas();
   const { isDesktop } = useAuth();
   const fechaFormateada = formatearFecha(fechaEntrega);
   const [menuVisible, setMenuVisible] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleCompletarTarea = async () => {
     await completarTarea(_id);
     setMenuVisible(false);
+  };
+
+  const handleEditarTarea = () => {
+    const datos = {
+      nombre,
+      descripcion,
+      prioridad,
+      fechaEntrega,
+    };
+    editarTarea(_id, datos);
   };
 
   const toggleMenu = () => {
@@ -21,7 +47,107 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
 
   return (
     <>
-    {/* TODO: Hacer que funciona el eliminar tarea en el movil, supongo q no va por el windowsalert? */}
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size={`${isDesktop ? "5xl" : "xs"}`}
+        placement="center"
+        backdrop="blur">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Editar Tarea
+              </ModalHeader>
+              <ModalBody className="w-full">
+                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
+                  <div className="mb-5">
+                    <label
+                      className="text-gray-700 uppercase font-bold text-sm"
+                      htmlFor="nombre">
+                      Nombre de la Tarea
+                    </label>
+                    <input
+                      type="text"
+                      id="nombre"
+                      className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                      placeholder="Nombre de la tarea"
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="mb-5">
+                    <label
+                      className="text-gray-700 uppercase font-bold text-sm"
+                      htmlFor="descripcion">
+                      Descripción de la Tarea
+                    </label>
+                    <textarea
+                      id="descripcion"
+                      className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                      placeholder="Descripcion de la tarea"
+                      value={descripcion}
+                      onChange={(e) => {
+                        setDescripcion(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="mb-5">
+                    <label
+                      className="text-gray-700 uppercase font-bold text-sm"
+                      htmlFor="fecha-entrega">
+                      Fecha de Entrega
+                    </label>
+                    <input
+                      type="date"
+                      id="fecha-entrega"
+                      className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                      value={formFecha(fechaEntrega)}
+                      onChange={(e) => {
+                        setFechaEntrega(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="mb-5">
+                    <label
+                      className="text-gray-700 uppercase font-bold text-sm"
+                      htmlFor="prioridad">
+                      Prioridad{" "}
+                    </label>
+                    <select
+                      id="prioridad"
+                      className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                      value={prioridad}
+                      onChange={(e) => {
+                        setPrioridad(e.target.value);
+                      }}>
+                      <option value="Baja">Baja</option>
+                      <option value="Media">Media</option>
+                      <option value="Alta">Alta</option>
+                    </select>
+                  </div>
+                </form>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    handleEditarTarea(), onClose();
+                  }}>
+                  Confirmar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
       <div
         className={`flex justify-between items-center py-5 pl-5 lg:pr-5  border-b-2 shadow-sm mb-2 mx-auto rounded-lg lg:w-full w-11/12 ${
           estado ? "opacity-50 border border-black italic bg-white" : "bg-white"
@@ -60,15 +186,14 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
             <p className="text-sm">{descripcion}</p>
           </div>
         )}
-        {/* 
-        TODO: Mejorar el diseño del menu de tarea 
-        */}
+
         <div className="flex lg:w-[200px] gap-1 h-28 justify-between">
           {menuVisible ? (
             <div
               className="relative w-full -top-3 lg:-right-0 -right-3 flex items-center my-auto flex-col gap-2 rounded-xl p-2 border-gray-800 border shadow-lg bg-gray-100"
               onMouseLeave={() => setMenuVisible(!menuVisible)}>
-              <button //TODO: Hacer el handleEditarTarea y que funcione
+              <button
+                onClick={onOpen}
                 className={
                   "bg-sky-600 px-4 flex gap-2 hover:opacity-[100%] hover:bg-sky-700 font-semiboldbold w-full h-8 text-white items-center justify-center font-bold  transition-all rounded-xl"
                 }>

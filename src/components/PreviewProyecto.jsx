@@ -82,7 +82,8 @@ const PreviewProyecto = ({ proyecto, index }) => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="5xl"
+        size={`${isDesktop ? "5xl" : "xs"}`}
+        placement="center"
         backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -91,7 +92,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
                 Editar Proyecto{" "}
               </ModalHeader>
               <ModalBody className="w-full">
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow">
+                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"

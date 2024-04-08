@@ -19,7 +19,7 @@ import formFecha from "../helpers/formFecha";
 const ProyectoColaborador = () => {
   const { proyecto, handleEditarProyecto, setProyecto } = useProyectos();
   const { tareas } = useTareas();
-  const { auth } = useAuth();
+  const { auth, isDesktop } = useAuth();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const {
@@ -57,7 +57,8 @@ const ProyectoColaborador = () => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="5xl"
+        size={`${isDesktop ? "5xl" : "xs"}`}
+        placement="center"
         backdrop="blur">
         <ModalContent>
           {(onClose) => (
@@ -66,7 +67,9 @@ const ProyectoColaborador = () => {
                 Editar Proyecto{" "}
               </ModalHeader>
               <ModalBody className="w-full">
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow">
+                <form
+                  className="bg-white py-10 px-5 w-full rounded-lg shadow"
+                  onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
