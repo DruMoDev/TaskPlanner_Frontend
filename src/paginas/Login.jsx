@@ -2,15 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "../components/Alerta";
 import clienteAxios from "../config/clienteAxios";
-import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
   const [email, setEmail] = useState("");
-
-  const { setAuth } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,8 +23,7 @@ const Login = () => {
         password,
       });
       localStorage.setItem("token", data.token);
-      setAlerta({});
-      setAuth(data);
+      setAlerta({});      
       toast.success("Sesión iniciada correctamente!");
       setTimeout(() => {
         window.location.reload();

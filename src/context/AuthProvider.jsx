@@ -68,13 +68,45 @@ const AuthProvider = ({ children }) => {
         datosCompletos,
         config
       );
-      setAuth({...auth, nombre: data.nombre, email: data.email});
+      setAuth({ ...auth, nombre: data.nombre, email: data.email });
 
       console.log(data);
 
       toast.success("Perfil editado correctamente.");
     } catch (error) {
       toast.error(error.response.data.msg);
+    }
+  };
+
+  const olvidePassword = async (email) => {
+    try {
+      const { data } = await clienteAxios.post("/usuarios/olvide-password", {
+        email,
+      });
+      console.log("Olvide password", data);
+
+      toast.success(data.msg);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
+  const cambiarPassword = async ({ passwordActual, passwordNuevo }) => {
+    const datos = {
+      password: passwordActual,
+      nuevoPassword: passwordNuevo,
+      email: auth.email,
+    };
+    try {
+      const { data } = await clienteAxios.put(
+        "/usuarios/perfil/editar-password",
+        datos,
+        config
+      );
+      toast.success(data.msg);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -87,6 +119,8 @@ const AuthProvider = ({ children }) => {
         iniciales,
         isDesktop,
         editarPerfil,
+        olvidePassword,
+        cambiarPassword,
       }}>
       {children}
     </AuthContext.Provider>

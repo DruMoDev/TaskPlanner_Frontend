@@ -37,7 +37,9 @@ const Header = () => {
         </Link>
 
         <div
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
           className="rounded-full bg-purple-600 h-6 w-6 p-4 text-sm items-center flex justify-center  lg:text-base lg:h-10 lg:w-10 font-bold text-white hover:opacity-80 cursor-pointer transition-all">
           {iniciales}
         </div>
@@ -46,7 +48,6 @@ const Header = () => {
             onMouseLeave={() => setMenuOpen(false)}
             className="absolute font-semibold top-11 right-2 lg:right-5 lg:top-14 bg-white border border-gray-200 shadow-lg rounded-lg flex flex-col text-sm lg:text-lg">
             <Link
-              onClick={setMenuOpen(false)}
               className="hover:bg-slate-200 transition-all px-3 rounded-t py-2 border-b"
               to="editar-perfil">
               Editar Perfil
