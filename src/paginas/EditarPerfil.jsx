@@ -24,7 +24,6 @@ const EditarPerfil = () => {
     cambiarPassword(datos);
   };
 
-  // TODO: Añadir el cambiar la contraseña del usuario
   return (
     <>
       <div className="w-3/4 mx-auto lg:w-1/2 flex flex-col justify-center items-center gap-6">
@@ -76,14 +75,14 @@ const EditarPerfil = () => {
         </div>
 
         <div className="flex flex-col border p-2 rounded shadow bg-white w-full items-center justify-center lg:py-10 py-5">
-          <h2 className="text-black text-3xl mb-4 font-bold lg:text-5xl">
-            Cambiar Constraseña{" "}
+          <h2 className="text-black text-2xl mb-4 font-bold lg:text-5xl">
+            Cambiar Contraseña{" "}
           </h2>
 
           <form
             onSubmit={handleSubmitPassword}
             className="flex flex-col justify-center items-center lg:mt-8 gap-4">
-            <label className="flex text-sm items-center justify-between w-full lg:text-xl">
+            <label className="flex text-sm text-center items-center justify-between w-full lg:text-xl">
               Contraseña actual:{" "}
               <input
                 type="text"
@@ -92,8 +91,8 @@ const EditarPerfil = () => {
                 className="bg-white text-black p-2 border rounded ml-2"
               />
             </label>
-            <label className="flex text-sm items-center justify-between w-full lg:text-xl">
-              Nueva Constraseña{" "}
+            <label className="flex text-sm items-center text-center justify-between w-full lg:text-xl">
+              Nueva Constraseña:{" "}
               <input
                 type="text"
                 value={passwordNuevo}
