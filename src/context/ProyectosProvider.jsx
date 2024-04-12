@@ -29,7 +29,7 @@ const ProyectosProvider = ({ children }) => {
         if (!token) {
           return;
         }
-        const { data } = await clienteAxios("/proyectos", config);        
+        const { data } = await clienteAxios("/proyectos", config);
         setProyectos(data);
       } catch (error) {
         console.log(error);
@@ -38,7 +38,6 @@ const ProyectosProvider = ({ children }) => {
     obtenerProyectos();
   }, []);
 
-  
   const submitProyecto = async (proyecto) => {
     try {
       if (!token) {
@@ -91,14 +90,28 @@ const ProyectosProvider = ({ children }) => {
   };
 
   const agregarColaborador = async (id) => {
-    const datos = { id: proyecto._id};
+    const datos = { id: proyecto._id };
     const { data } = await clienteAxios.post(
       `/proyectos/agregar-colaborador/${id}`,
       datos,
       config
     );
-    console.log(data);
+    setProyecto({ ...proyecto, ...data });
+    console.log(proyecto);
+    
   };
+
+  const eliminarColaborador = async (id) => {
+    const datos = { id: proyecto._id };
+    const { data } = await clienteAxios.post(
+      `/proyectos/eliminar-colaborador/${id}`,
+      datos,
+      config
+    );
+    
+    setProyecto({ ...proyecto, ...data });    
+    console.log(proyecto);
+  }
 
   const buscarColaborador = async (email) => {
     const { data } = await clienteAxios.get(
@@ -106,6 +119,11 @@ const ProyectosProvider = ({ children }) => {
       config
     );
     setColaborador(data);
+  };
+
+  const obtenerColaboradoresById = async (id) => {   
+    const { data } = await clienteAxios.get(`/usuarios/perfil/${id}`, config);
+    return data;
   };
 
   return (
@@ -124,8 +142,9 @@ const ProyectosProvider = ({ children }) => {
         buscarColaborador,
         colaborador,
         setColaborador,
-      }}
-    >
+        eliminarColaborador,
+        obtenerColaboradoresById
+      }}>
       {children}
     </ProyectosContext.Provider>
   );

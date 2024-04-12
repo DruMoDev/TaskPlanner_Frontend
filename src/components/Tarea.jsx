@@ -18,7 +18,6 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
   const [descripcion, setDescripcion] = useState(tarea.descripcion);
   const [prioridad, setPrioridad] = useState(tarea.prioridad);
   const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
-  const [estado, setEstado] = useState(tarea.estado);
   const [_id, setId] = useState(tarea._id);
   const { completarTarea, editarTarea } = useTareas();
   const { isDesktop } = useAuth();
@@ -60,7 +59,9 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
                 Editar Tarea
               </ModalHeader>
               <ModalBody className="w-full">
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
+                <form
+                  className="bg-white py-10 px-5 w-full rounded-lg shadow"
+                  onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
@@ -150,7 +151,9 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
 
       <div
         className={`flex justify-between items-center py-5 pl-5 lg:pr-5  border-b-2 shadow-sm mb-2 mx-auto rounded-lg lg:w-full w-11/12 ${
-          estado ? "opacity-50 border border-black italic bg-white" : "bg-white"
+          tarea.estado
+            ? "opacity-50 border border-black italic bg-white"
+            : "bg-white"
         }`}>
         {isDesktop ? (
           <div className="flex-1 flex flex-col">
@@ -205,7 +208,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
                   <path d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z" />
                 </svg>
               </button>
-              {estado ? (
+              {tarea.estado ? (
                 <button
                   className={`bg-amber-600  flex gap-2  hover:opacity-[100%] hover:bg-amber-700 font-semiboldbold w-full h-8 text-white items-center justify-center font-bold  transition-all rounded-xl`}
                   onClick={handleCompletarTarea}>

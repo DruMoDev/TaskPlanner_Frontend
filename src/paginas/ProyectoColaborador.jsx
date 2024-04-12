@@ -172,52 +172,56 @@ const ProyectoColaborador = () => {
       {nombre === undefined ? (
         ""
       ) : (
-        <div className="bg-amber-300">
-          <div className="flex justify-between mb-10 items-center ">
-            <h1 className="text-4xl font-black ">{nombre}</h1>
-            <div className="w-[500px]  font-bold">
-              <Progress
-                size="md"
-                value={progressBar(tareas)}
-                label={`Tareas restantes ${tareasCompletadas}/${tareas.length}`}
-              />
-            </div>
-            <div className="w-1/4"></div>
-          </div>
-          <div className="w-full flex flex-col bg-white rounded p-5">
-            <div className="flex justify-between w-full mb-2">
-              <span className="bg-purple-300 px-3 rounded-full border-black border font-semibold py-1">
-                {auth._id === proyecto.creador ? "Manager" : "Colaborador"}
-              </span>
-              <div className="w-full flex justify-end gap-5">
-                <p className="text-default-500 text-sm italic">
-                  Creado:{" "}
-                  <span className=" ">
-                    {createdAt && createdAt.slice(0, 10)}
-                  </span>
-                </p>
-                <p className="text-default-500 text-sm italic">
-                  Última edición:{" "}
-                  <span>{updatedAt && updatedAt.slice(0, 10)}</span>
-                </p>
+        <>
+          <div className="flex  mb-10 items-center w-[380px] lg:w-full mx-auto">
+            <h1 className="lg:text-4xl text-3xl font-black truncate max-w-[200px] lg:max-w-[700px] lg:h-12 w-full">
+              {nombre}
+            </h1>
+            {isDesktop && (
+              <div className="w-[500px] font-bold">
+                <Progress
+                  size="md"
+                  value={progressBar(tareas)}
+                  label={`Tareas restantes ${tareasCompletadas}/${tareas.length}`}
+                />
               </div>
+            )}
+          </div>
+
+          <div className="lg:w-full w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10">
+            <div className="flex justify-between w-full mb-2">
+              <span className={`px-3 rounded-full border-black border font-semibold py-1 text-xs lg:text-base ${auth._id === proyecto.creador ? "bg-purple-400" : "bg-amber-300"}`}>
+                {auth._id === proyecto.creador ? "Creador" : "Colaborador"}
+              </span>
+              {isDesktop && (
+                <div className="w-full flex justify-end gap-5">
+                  <p className="text-default-500 text-sm italic">
+                    Creado:{" "}
+                    <span className=" ">
+                      {createdAt && createdAt.slice(0, 10)}
+                    </span>
+                  </p>
+                  <p className="text-default-500 text-sm italic">
+                    Última edición:{" "}
+                    <span>{updatedAt && updatedAt.slice(0, 10)}</span>
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-5">
-              <p className="font-bold text-xl uppercase">
-                Cliente:{" "}
-                <span className="normal-case font-normal">{cliente}</span>
+            <div className="mb-5 text-xl lg:text-2xl font-light">
+              <p>
+                Cliente: <span className="font-bold">{cliente}</span>
               </p>
             </div>
-            <div className="mb-5">
-              <p className="font-bold text-xl uppercase">
-                Descripción:{" "}
-                <span className="normal-case font-normal">{descripcion}</span>
+            <div className="mb-5 text-xl lg:text-2xl font-light">
+              <p>
+                Descripción: <span className="font-bold">{descripcion}</span>
               </p>
             </div>
-            <div className="mb-5">
-              <p className="font-bold text-xl uppercase">
+            <div className="mb-5 text-xl lg:text-2xl font-light">
+              <p>
                 Fecha de entrega:{" "}
-                <span className="normal-case font-normal">
+                <span className="font-bold">
                   {fechaEntrega && formatearFecha(fechaEntrega)}
                 </span>
               </p>
@@ -225,7 +229,7 @@ const ProyectoColaborador = () => {
           </div>
 
           <Tareas />
-        </div>
+        </>
       )}
     </>
   );

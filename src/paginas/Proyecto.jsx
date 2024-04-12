@@ -89,7 +89,9 @@ const Proyecto = () => {
                 Editar Proyecto{" "}
               </ModalHeader>
               <ModalBody className="w-full">
-                <form className="bg-white py-10 px-5 w-full rounded-lg shadow" onSubmit={(e) => e.preventDefault()}>
+                <form
+                  className="bg-white py-10 px-5 w-full rounded-lg shadow"
+                  onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
                     <label
                       className="text-gray-700 uppercase font-bold text-sm"
@@ -246,8 +248,13 @@ const Proyecto = () => {
 
           <div className="lg:w-full w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10">
             <div className="flex justify-between w-full mb-2">
-              <span className="bg-purple-300 px-3 rounded-full border-black border font-semibold py-1 text-xs lg:text-base">
-                {auth._id === proyecto.creador ? "Manager" : "Colaborador"}
+              <span
+                className={`bg-purple-300 px-3 rounded-full border-black border font-semibold py-1 text-xs lg:text-base ${
+                  auth._id === proyecto.creador
+                    ? "bg-purple-400"
+                    : "bg-amber-300"
+                }`}>
+                {auth._id === proyecto.creador ? "Creador" : "Colaborador"}
               </span>
               {isDesktop && (
                 <div className="w-full flex justify-end gap-5">

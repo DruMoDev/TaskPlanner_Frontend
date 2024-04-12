@@ -211,7 +211,7 @@ const PreviewProyecto = ({ proyecto, index }) => {
                 className={` px-2 lg:px-3 rounded-full border-black border font-semibold py-1  lg:text-base text-[9px] text-center ${
                   creador ? "bg-purple-400" : "bg-amber-300"
                 }`}>
-                {creador ? "Manager" : "Colaborador"}
+                {creador ? "Creador" : "Colaborador"}
               </p>
             </div>
             <p className="lg:text-lg text-sm font-semibold text-default-500">
