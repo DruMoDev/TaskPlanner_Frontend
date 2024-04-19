@@ -1,6 +1,6 @@
 import { useState } from "react";
-import useProyectos from "../hooks/useProyectos";
-import Alerta from "./Alerta";
+import useProyectos from "../../hooks/useProyectos";
+import Alerta from "../Alerta";
 
 const FormularioProyecto = () => {
   const [nombre, setNombre] = useState("");

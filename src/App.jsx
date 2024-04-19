@@ -16,7 +16,6 @@ import { TareasProvider } from "./context/TareasProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AgregarColaborador from "./paginas/AgregarColaborador";
-import ProyectoColaborador from "./paginas/ProyectoColaborador";
 import EditarPerfil from "./paginas/EditarPerfil";
 
 function App() {
@@ -46,11 +45,8 @@ function App() {
                   <Route path="/proyectos" element={<RutaProtegida />}>
                     <Route index element={<Proyectos />}></Route>
                     <Route path="crear-proyectos" element={<NuevoProyecto />} />
-                    <Route path=":num" element={<Proyecto />} />
-                    <Route
-                      path=":num/colaborador"
-                      element={<ProyectoColaborador />}
-                    />
+                    <Route path=":_id" element={<Proyecto />} />
+                    <Route path=":_id/colaborador" element={<Proyecto />} />
                     <Route
                       path="agregar-colaborador"
                       element={<AgregarColaborador />}

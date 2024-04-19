@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import FormularioProyecto from "../components/FormularioProyecto";
+import FormularioProyecto from "../components/proyectos/FormularioProyecto";
 
 const NuevoProyecto = () => {
   return (

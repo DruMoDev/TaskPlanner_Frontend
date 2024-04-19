@@ -1,4 +1,4 @@
-import formatearFecha from "../helpers/formatearFecha";
+import formatearFecha from "../../helpers/formatearFecha";
 import {
   Button,
   Modal,
@@ -8,16 +8,17 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import useAuth from "../hooks/useAuth";
-import useTareas from "../hooks/useTareas";
+import useAuth from "../../hooks/useAuth";
+import useTareas from "../../hooks/useTareas";
 import { useState } from "react";
-import formFecha from "../helpers/formFecha";
+import formFecha from "../../helpers/formFecha";
 
 const Tarea = ({ tarea, handleEliminarTarea }) => {
   const [nombre, setNombre] = useState(tarea.nombre);
   const [descripcion, setDescripcion] = useState(tarea.descripcion);
   const [prioridad, setPrioridad] = useState(tarea.prioridad);
   const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
+  const { estado, setEstado } = useState(tarea.estado);
   const [_id, setId] = useState(tarea._id);
   const { completarTarea, editarTarea } = useTareas();
   const { isDesktop } = useAuth();

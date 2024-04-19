@@ -1,8 +1,22 @@
-import PreviewProyecto from "../components/PreviewProyecto";
+import PreviewProyecto from "../components/proyectos/PreviewProyecto";
 import useProyectos from "../hooks/useProyectos";
 
 const Proyectos = () => {
-  const { proyectos } = useProyectos();
+  const { proyectos, handleEliminarProyecto, handleEditarProyecto } =
+    useProyectos();
+
+  const handleEliminar = (_id) => {
+    const confirmacion = window.confirm(
+      "¿Estás seguro de que deseas eliminar este proyecto?"
+    );
+    if (confirmacion) {
+      handleEliminarProyecto(_id);
+    }
+  };
+
+  const handleEditar = (datos, _id) => {
+    handleEditarProyecto(_id, datos);
+  };
 
   return (
     <>
@@ -16,6 +30,8 @@ const Proyectos = () => {
               key={proyecto._id}
               proyecto={proyecto}
               index={index}
+              handleEliminar={handleEliminar}
+              handleEditar={handleEditar}
             />
           ))
         ) : (

@@ -1,15 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/clienteAxios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProyectosContext = createContext();
 
 const ProyectosProvider = ({ children }) => {
-  const [proyectos, setProyectos] = useState({});
+  const [proyectos, setProyectos] = useState([]);
   const [colaborador, setColaborador] = useState({});
   const [alerta, setAlerta] = useState([]);
   const [proyecto, setProyecto] = useState({});
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const token = localStorage.getItem("token");
   const config = {
@@ -83,7 +84,16 @@ const ProyectosProvider = ({ children }) => {
         datos,
         config
       );
+      // Filtra proyectos antes de añadir data para que no haya duplicados
       console.log(data);
+
+      const proyectosFiltrado = proyectos.filter((proyecto) => {
+        return proyecto._id !== _id;
+      });
+      setProyectos([data, ...proyectosFiltrado]);
+      if (pathname !== "/proyectos") {
+        setProyecto(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +108,6 @@ const ProyectosProvider = ({ children }) => {
     );
     setProyecto({ ...proyecto, ...data });
     console.log(proyecto);
-    
   };
 
   const eliminarColaborador = async (id) => {
@@ -108,10 +117,10 @@ const ProyectosProvider = ({ children }) => {
       datos,
       config
     );
-    
-    setProyecto({ ...proyecto, ...data });    
+
+    setProyecto({ ...proyecto, ...data });
     console.log(proyecto);
-  }
+  };
 
   const buscarColaborador = async (email) => {
     const { data } = await clienteAxios.get(
@@ -121,7 +130,7 @@ const ProyectosProvider = ({ children }) => {
     setColaborador(data);
   };
 
-  const obtenerColaboradoresById = async (id) => {   
+  const obtenerColaboradoresById = async (id) => {
     const { data } = await clienteAxios.get(`/usuarios/perfil/${id}`, config);
     return data;
   };
@@ -143,7 +152,7 @@ const ProyectosProvider = ({ children }) => {
         colaborador,
         setColaborador,
         eliminarColaborador,
-        obtenerColaboradoresById
+        obtenerColaboradoresById,
       }}>
       {children}
     </ProyectosContext.Provider>
