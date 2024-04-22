@@ -1,13 +1,16 @@
 import useProyectos from "../hooks/useProyectos";
-import Tareas from "../components/tareas/Tareas";
 import ProyectoInfo from "../components/proyectos/ProyectoInfo";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import useTareas from "../hooks/useTareas";
+import TareasDesktop from "../components/tareas/TareasDesktop";
+import useAuth from "../hooks/useAuth";
+import TareasMobile from "../components/tareas/TareasMobile";
 
 const Proyecto = () => {
   const { proyecto, obtenerProyecto, setProyecto } = useProyectos();
   const { obtenerTarea, setTareas } = useTareas();
+  const {isDesktop} = useAuth();
   const params = useParams();
   const _id = params._id;
 
@@ -26,7 +29,7 @@ const Proyecto = () => {
       {proyecto && proyecto.nombre !== undefined && (
         <>
           <ProyectoInfo />
-          <Tareas />
+          {isDesktop ? <TareasDesktop /> : <TareasMobile />}
         </>
       )}
     </>

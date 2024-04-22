@@ -18,7 +18,6 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
   const [descripcion, setDescripcion] = useState(tarea.descripcion);
   const [prioridad, setPrioridad] = useState(tarea.prioridad);
   const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
-  const { estado, setEstado } = useState(tarea.estado);
   const [_id, setId] = useState(tarea._id);
   const { completarTarea, editarTarea } = useTareas();
   const { isDesktop } = useAuth();
@@ -150,52 +149,21 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
         </ModalContent>
       </Modal>
 
-      <div
-        className={`flex justify-between items-center py-5 pl-5 lg:pr-5  border-b-2 shadow-sm mb-2 mx-auto rounded-lg lg:w-full w-11/12 ${
-          tarea.estado
-            ? "opacity-50 border border-black italic bg-white"
-            : "bg-white"
-        }`}>
-        {isDesktop ? (
-          <div className="flex-1 flex flex-col">
-            <div className="flex items-center">
-              <h2 className="text-xl font-semibold indent-1 mb-1">{nombre}</h2>
-              <span className="b-l border-1 mx-2 border-black h-5"></span>
-              <p
-                className={`text-lg font-semibold  ${
-                  prioridad === "Baja" ? "text-green-700" : ""
-                } ${prioridad === "Media" ? "text-amber-500" : ""} ${
-                  prioridad === "Alta" ? "text-red-700" : ""
-                }`}>
-                {prioridad}
-              </p>
-              <span className="b-l border-1 mx-2 border-black h-5"></span>
-              <p className="text-md font-semibold">{fechaFormateada}</p>
-            </div>
+      <div className="flex justify-between items-center py-5 pl-3 lg:pr-5  border-b-2 shadow-sm mb-2 rounded-lg w-full bg-white min-h-36">
+        <div className="flex flex-col gap-4 overflow-auto">
+          <h2 className="text-lg font-semibold text-gray-800 flex gap-10 items-center">
+            {nombre} <p className="text-gray-500 text-sm text-center">{fechaFormateada}</p>
+          </h2>
 
-            <p className="text-sm ">{descripcion}</p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-1 w-4/6">
-            <h2 className="text-xl font-semibold">{nombre}</h2>
-            <p
-              className={`text-md font-semibold ${
-                prioridad === "Baja" ? "text-green-700" : ""
-              } ${prioridad === "Media" ? "text-amber-500" : ""} ${
-                prioridad === "Alta" ? "text-red-700" : ""
-              }`}>
-              {prioridad}
-            </p>
+          <h3>{descripcion}</h3>
+        </div>
 
-            <p className="text-sm">{descripcion}</p>
-          </div>
-        )}
-
-        <div className="flex lg:w-[200px] gap-1 h-28 justify-between">
-          {menuVisible ? (
+        <div className="flex relative">
+          {menuVisible && (
             <div
-              className="relative w-full -top-3 lg:-right-0 -right-3 flex items-center my-auto flex-col gap-2 rounded-xl p-2 border-gray-800 border shadow-lg bg-gray-100"
-              onMouseLeave={() => setMenuVisible(!menuVisible)}>
+              className="absolute right-10 -top-10 flex items-center flex-col gap-2 rounded-xl p-2 border-gray-800 border shadow-lg bg-gray-100"
+              // onMouseLeave={() => setMenuVisible(!menuVisible)}
+            >
               <button
                 onClick={onOpen}
                 className={
@@ -247,10 +215,9 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
                 </svg>
               </button>
             </div>
-          ) : (
-            <div className="h-28"></div>
           )}
-          <button onClick={toggleMenu}>
+
+          <button onClick={toggleMenu} className="flex">
             <svg
               viewBox="0 0 21 21"
               fill="currentColor"
