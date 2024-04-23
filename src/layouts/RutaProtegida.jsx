@@ -12,12 +12,9 @@ const RutaProtegida = () => {
       {auth._id ? (
         <div className="font-sans">
           <Header />
-          <div className="md:flex md:min-h-screen">
-            {/* <Sidebar /> */}
-            <main className="container mx-auto pt-10">
+            <main className="container mx-auto pt-10 md:min-h-screen">
               <Outlet />
             </main>
-          </div>
         </div>
       ) : (
         <Navigate to={"/"}></Navigate>

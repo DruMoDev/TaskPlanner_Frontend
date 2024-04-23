@@ -7,30 +7,27 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import useAuth from "../../hooks/useAuth";
-import useProyectos from "../../hooks/useProyectos";
-import formFecha from "../../helpers/formFecha";
 import { useState } from "react";
+import useTareas from "../../hooks/useTareas";
+import formFecha from "../../helpers/formFecha";
 
-const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
-  const { proyecto, handleEditarProyecto } = useProyectos();
-  const [nombre, setNombre] = useState(proyecto.nombre);
-  const [descripcion, setDescripcion] = useState(proyecto.descripcion);
-  const [fechaEntrega, setFechaEntrega] = useState(proyecto.fechaEntrega);
-  const [cliente, setCliente] = useState(proyecto.cliente);
-
+const ModalEditarTarea = ({ onOpenChange, isOpen, tarea }) => {
+  const [nombre, setNombre] = useState(tarea.nombre);
+  const [descripcion, setDescripcion] = useState(tarea.descripcion);
+  const [prioridad, setPrioridad] = useState(tarea.prioridad);
+  const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
+  const { _id } = tarea;
   const { isDesktop } = useAuth();
+  const { editarTarea } = useTareas();
 
-  const { _id } = proyecto;
-
-  const handleEditar = async () => {
+  const handleEditarTarea = () => {
     const datos = {
       nombre,
       descripcion,
-      cliente,
+      prioridad,
       fechaEntrega,
     };
-
-    await handleEditarProyecto(_id, datos);
+    editarTarea(_id, datos);
   };
 
   return (
@@ -44,28 +41,26 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Editar Proyecto{" "}
+              Editar Tarea
             </ModalHeader>
             <ModalBody className="w-full">
               <form
-                name="formProyectoInfoEditar"
                 className="bg-white py-10 px-5 w-full rounded-lg shadow"
+                name="formEditarTarea"
                 onSubmit={(e) => e.preventDefault()}>
                 <div className="mb-5">
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="nombre">
-                    Nombre Proyecto
+                    Nombre de la Tarea
                   </label>
                   <input
                     type="text"
                     id="nombre"
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    placeholder="Nombre del Proyecto"
+                    placeholder="Nombre de la tarea"
                     value={nombre}
-                    onChange={(e) => {
-                      setNombre(e.target.value);
-                    }}
+                    onChange={(e) => setNombre(e.target.value)}
                   />
                 </div>
 
@@ -73,12 +68,12 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="descripcion">
-                    Descripcion Proyecto
+                    Descripción de la Tarea
                   </label>
                   <textarea
                     id="descripcion"
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    placeholder="Descripcion del Proyecto"
+                    placeholder="Descripcion de la tarea"
                     value={descripcion}
                     onChange={(e) => {
                       setDescripcion(e.target.value);
@@ -90,7 +85,7 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="fecha-entrega">
-                    Fecha de Entrega{" "}
+                    Fecha de Entrega
                   </label>
                   <input
                     type="date"
@@ -98,7 +93,7 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                     value={formFecha(fechaEntrega)}
                     onChange={(e) => {
-                      setFechaEntrega(fechaEntrega(e.target.value));
+                      setFechaEntrega(e.target.value);
                     }}
                   />
                 </div>
@@ -106,19 +101,20 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
                 <div className="mb-5">
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
-                    htmlFor="cliente">
-                    Nombre del Cliente
+                    htmlFor="prioridad">
+                    Prioridad{" "}
                   </label>
-                  <input
-                    type="text"
-                    id="cliente"
+                  <select
+                    id="prioridad"
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    placeholder="Nombre del cliente"
-                    value={cliente}
+                    value={prioridad}
                     onChange={(e) => {
-                      setCliente(e.target.value);
-                    }}
-                  />
+                      setPrioridad(e.target.value);
+                    }}>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                  </select>
                 </div>
               </form>
             </ModalBody>
@@ -129,7 +125,7 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
               <Button
                 color="primary"
                 onPress={() => {
-                  handleEditar(), onClose();
+                  handleEditarTarea(), onClose();
                 }}>
                 Confirmar
               </Button>
@@ -140,4 +136,4 @@ const ModalProyectoInfoEditar = ({ isOpen, onOpenChange }) => {
     </Modal>
   );
 };
-export default ModalProyectoInfoEditar;
+export default ModalEditarTarea;

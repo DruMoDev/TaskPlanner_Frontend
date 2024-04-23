@@ -46,11 +46,11 @@ const TareasProvider = ({ children }) => {
     }
   };
 
-  const completarTarea = async (id) => {
+  const cambiarEstadoTarea = async (id, estado) => {
     try {
       // La const de datos es irrelebante, solo es para poder hacer un "post"
-      const datos = { estado: false };
-      const { data } = await clienteAxios.post(
+      const datos = { estado };
+      const { data } = await clienteAxios.put(
         `/tareas/estado/${id}`,
         datos,
         config
@@ -67,6 +67,7 @@ const TareasProvider = ({ children }) => {
         }
       });
       setTareas([...tareasActualizadas]);
+      toast.success("Estado de la tarea actualizado correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -75,6 +76,7 @@ const TareasProvider = ({ children }) => {
   const editarTarea = async (id, datos) => {
     try {
       const { data } = await clienteAxios.put(`/tareas/${id}`, datos, config);
+
       const tareasActualizadas = tareas.map((tarea) => {
         if (tarea._id === id) {
           return {
@@ -82,7 +84,7 @@ const TareasProvider = ({ children }) => {
             nombre: data.nombre,
             prioridad: data.prioridad,
             descripcion: data.descripcion,
-            fecha: data.fecha,
+            fechaEntrega: data.fechaEntrega,
           };
         } else {
           return tarea;
@@ -102,7 +104,7 @@ const TareasProvider = ({ children }) => {
         tareas,
         crearTarea,
         eliminarTarea,
-        completarTarea,
+        cambiarEstadoTarea,
         setTareas,
         editarTarea,
       }}>

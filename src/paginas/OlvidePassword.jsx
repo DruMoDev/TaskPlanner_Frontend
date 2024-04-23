@@ -32,6 +32,7 @@ const OlvidePassword = () => {
       {msg && <Alerta alerta={alerta} />}
 
       <form
+        name="formOlvidePassword"
         className="my-10 bg-white shadow rounded-lg p-10"
         onSubmit={handleSubmit}>
         <div className="my-5 ">

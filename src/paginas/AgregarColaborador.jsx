@@ -76,7 +76,9 @@ const AgregarColaborador = () => {
       </h1>
 
       <div className="mt-10 flex justify-center items-center bg-white py-10 px-5 w-3/4 lg:w-2/4 rounded-lg shadow flex-col mx-auto">
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-col" onSubmit={handleSubmit} 
+          name="formAgregarColaborador"
+        >
           <div className="mb-7">
             <label
               className="text-gray-700 uppercase font-bold text-sm lg:text-xl"

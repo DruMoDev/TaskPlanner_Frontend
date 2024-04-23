@@ -1,16 +1,14 @@
 import { useDisclosure } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import Tarea from "./Tarea";
 import useTareas from "../../hooks/useTareas";
 import useAuth from "../../hooks/useAuth";
 import ModalCrearTarea from "./ModalCrearTarea";
+import TareaDesktop from "./TareaDesktop";
 
 const TareasDesktop = () => {
   const { eliminarTarea, tareas } = useTareas();
   const { isDesktop } = useAuth();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  // const [opcionOrden, setOpcionOrden] = useState("estado"); // Por defecto, ordenar por fecha
-  // const [tareasOrdenadas, setTareasOrdenadas] = useState([]); // Array de tareas ordenadas
 
   const [tareasPendientes, setTareasPendientes] = useState([]);
   const [tareasEnProgreso, setTareasEnProgreso] = useState([]);
@@ -37,30 +35,6 @@ const TareasDesktop = () => {
     setTareasTerminadas(tareasTerminadas);
   }, [tareas]);
 
-  // useEffect(() => {
-  //   let tareasOrdenadas;
-  //   if (opcionOrden === "fecha") {
-  //     tareasOrdenadas = [...tareas].sort((a, b) => {
-  //       const fechaEntregaA = new Date(a.fechaEntrega);
-  //       const fechaEntregaB = new Date(b.fechaEntrega);
-  //       return fechaEntregaA - fechaEntregaB;
-  //     });
-  //   } else if (opcionOrden === "estado") {
-  //     tareasOrdenadas = [...tareas].sort((a, b) =>
-  //       a.estado === b.estado ? 0 : a.estado ? 1 : -1
-  //     );
-  //   } else if (opcionOrden === "prioridad") {
-  //     tareasOrdenadas = [...tareas].sort((a, b) => {
-  //       const prioridadA = a.prioridad;
-  //       const prioridadB = b.prioridad;
-  //       // Asigna un valor numérico a cada prioridad para poder compararlas
-  //       const prioridadValues = { Baja: 1, Media: 2, Alta: 3 };
-  //       return prioridadValues[prioridadA] - prioridadValues[prioridadB];
-  //     });
-  //   }
-  //   setTareasOrdenadas(tareasOrdenadas);
-  // }, [tareas, opcionOrden]);
-
   const handleEliminarTarea = async (_id) => {
     try {
       const confirmacion = window.confirm(
@@ -83,25 +57,13 @@ const TareasDesktop = () => {
         onClose={onClose}
       />
 
-      <div className="flex justify-between my-10 w-11/12 mx-auto lg:w-full">
+      <div className="flex justify-between my-10  mx-auto w-11/12 ">
         <h1 className="lg:text-4xl text-2xl font-black text-sky-700 my-auto">
           Tareas
         </h1>
 
-        {/* <div className="lg:ml-5 flex gap-5 justify-center items-center">
-          {isDesktop && <h2 className="font-semibold text-xl">Ordenar por:</h2>}
-          <select
-            className="border-2 border-gray-300 rounded-md py-1 pr-3 pl-1  text-gray-700 focus:outline-none focus:border-sky-500"
-            value={opcionOrden}
-            onChange={(e) => setOpcionOrden(e.target.value)}>
-            <option value="fecha">Fecha de Entrega</option>
-            <option value="estado">Estado</option>
-            <option value="prioridad">Prioridad</option>
-          </select>
-        </div> */}
-
         <button
-          className="bg-sky-600 px-2 lg:px-6 h-12 font-semiboldbold flex text-white items-center justify-center uppercase font-bold hover:bg-sky-700 transition-colors rounded-full  lg:mr-10 "
+          className="bg-sky-600 px-6 h-12 font-semiboldbold flex text-white items-center justify-center uppercase font-bold hover:bg-sky-700 transition-colors rounded-full "
           onClick={onOpen}>
           <svg
             viewBox="0 0 1024 1024"
@@ -114,57 +76,65 @@ const TareasDesktop = () => {
       </div>
 
       {tareas.length !== 0 ? (
-        <div className="grid grid-cols-4 lg:grid-cols-4 gap-5 w-11/12 mx-auto">
-          {/* {tareasOrdenadas.map((tarea) => (
-            <Tarea
-              key={tarea._id}
-              tarea={tarea}
-              handleEliminarTarea={handleEliminarTarea}
-            />
-          ))} */}
-
-          <div>
-            <h2 className="font-semibold text-xl mb-3">Pendientes</h2>
-            {tareasPendientes.map((tarea) => (
-              <Tarea
-                key={tarea._id}
-                tarea={tarea}
-                handleEliminarTarea={handleEliminarTarea}
-              />
-            ))}
+        <div className="grid grid-cols-4 gap-5 w-11/12 mx-auto pb-10">
+          <div className="flex flex-col">
+            <h2 className="font-semibold text-xl mb-3 border-b-slate-600 border-b-5 indent-1 pb-1">
+              Pendientes
+            </h2>
+            <ul className="flex flex-col gap-4 mt-2">
+              {tareasPendientes.map((tarea) => (
+                <TareaDesktop
+                  key={tarea._id}
+                  tarea={tarea}
+                  handleEliminarTarea={handleEliminarTarea}
+                />
+              ))}
+            </ul>
           </div>
 
-          <div>
-            <h2 className="font-semibold text-xl mb-3">En Progreso</h2>
-            {tareasEnProgreso.map((tarea) => (
-              <Tarea
-                key={tarea._id}
-                tarea={tarea}
-                handleEliminarTarea={handleEliminarTarea}
-              />
-            ))}
+          <div className="flex flex-col">
+            <h2 className="font-semibold text-xl mb-3 border-b-blue-600 border-b-5 indent-1 pb-1">
+              En Progreso
+            </h2>
+            <ul className="flex flex-col gap-4 mt-2">
+              {tareasEnProgreso.map((tarea) => (
+                <TareaDesktop
+                  key={tarea._id}
+                  tarea={tarea}
+                  handleEliminarTarea={handleEliminarTarea}
+                />
+              ))}
+            </ul>
           </div>
 
-          <div>
-            <h2 className="font-semibold text-xl mb-3">En Revisión</h2>
-            {tareasEnRevisión.map((tarea) => (
-              <Tarea
-                key={tarea._id}
-                tarea={tarea}
-                handleEliminarTarea={handleEliminarTarea}
-              />
-            ))}
+          <div className="flex flex-col">
+            <h2 className="font-semibold text-xl mb-3 border-b-amber-600 border-b-5 indent-1 pb-1">
+              En Revisión
+            </h2>
+            <ul className="flex flex-col gap-4 mt-2">
+              {tareasEnRevisión.map((tarea) => (
+                <TareaDesktop
+                  key={tarea._id}
+                  tarea={tarea}
+                  handleEliminarTarea={handleEliminarTarea}
+                />
+              ))}
+            </ul>
           </div>
 
-          <div>
-            <h2 className="font-semibold text-xl mb-3">Terminadas</h2>
-            {tareasTerminadas.map((tarea) => (
-              <Tarea
-                key={tarea._id}
-                tarea={tarea}
-                handleEliminarTarea={handleEliminarTarea}
-              />
-            ))}
+          <div className="flex flex-col">
+            <h2 className="font-semibold text-xl mb-3 border-b-green-600 border-b-5 indent-1 pb-1">
+              Terminadas
+            </h2>
+            <ul className="flex flex-col gap-4 mt-2">
+              {tareasTerminadas.map((tarea) => (
+                <TareaDesktop
+                  key={tarea._id}
+                  tarea={tarea}
+                  handleEliminarTarea={handleEliminarTarea}
+                />
+              ))}
+            </ul>
           </div>
         </div>
       ) : (

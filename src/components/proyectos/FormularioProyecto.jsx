@@ -31,6 +31,7 @@ const FormularioProyecto = () => {
 
   return (
     <form
+    name="formProyecto"
       className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
       onSubmit={handleSubmit}
     >

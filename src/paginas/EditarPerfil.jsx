@@ -46,6 +46,7 @@ const EditarPerfil = () => {
             Editar Perfil
           </h2>
           <form
+          name="formEditarPerfil"
             onSubmit={handleSubmitPerfil}
             className="flex flex-col justify-center items-center lg:mt-8 gap-4">
             <label className="flex text-sm items-center justify-between w-full lg:text-xl">

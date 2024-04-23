@@ -62,7 +62,6 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
         proyecto: proyecto._id,
         fechaEntrega: fechaDeEntrega,
       };
-      console.log(fechaDeEntrega);
 
       await crearTarea(datos);
       setActualizarTareas((actualizarTareas) => !actualizarTareas);
@@ -89,6 +88,7 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
             <ModalBody className="w-full">
               {msg && <Alerta alerta={alerta} />}
               <form
+                name="formCrearTarea"
                 className="bg-white py-10 px-5 w-full rounded-lg shadow"
                 onSubmit={(e) => e.preventDefault()}>
                 <div className="mb-5">

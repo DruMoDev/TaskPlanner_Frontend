@@ -57,6 +57,7 @@ const NuevoPassword = () => {
       {msg && <Alerta alerta={alerta} error={true} />}
       {tokenValido && (
         <form
+        name="formNuevoPassword"
           className="my-10 bg-white shadow rounded-lg p-10"
           onSubmit={handleSubmit}>
           <div className="my-5 ">

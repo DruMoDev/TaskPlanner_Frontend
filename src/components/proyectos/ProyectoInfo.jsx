@@ -53,7 +53,7 @@ const ProyectoInfo = () => {
     <>
       <ModalProyectoInfoEditar isOpen={isOpen} onOpenChange={onOpenChange} />
 
-      <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between">
+      <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between lg:w-11/12">
         <h1 className="lg:text-4xl text-3xl font-black truncate max-w-[200px] lg:max-w-[700px] lg:h-12 ">
           {nombre}
         </h1>
@@ -106,7 +106,7 @@ const ProyectoInfo = () => {
         )}
       </div>
 
-      <div className="lg:w-full w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10">
+      <div className="w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10 shadow">
         <div className="flex justify-between w-full mb-2">
           <span
             className={`px-3 rounded-full border-black border font-semibold py-1 text-xs lg:text-base ${

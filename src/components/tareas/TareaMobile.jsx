@@ -13,20 +13,20 @@ import useTareas from "../../hooks/useTareas";
 import { useState } from "react";
 import formFecha from "../../helpers/formFecha";
 
-const Tarea = ({ tarea, handleEliminarTarea }) => {
+const TareaMobile = ({ tarea, handleEliminarTarea }) => {
   const [nombre, setNombre] = useState(tarea.nombre);
   const [descripcion, setDescripcion] = useState(tarea.descripcion);
   const [prioridad, setPrioridad] = useState(tarea.prioridad);
   const [fechaEntrega, setFechaEntrega] = useState(tarea.fechaEntrega);
-  const [_id, setId] = useState(tarea._id);
-  const { completarTarea, editarTarea } = useTareas();
+  const { cambiarEstadoTarea, editarTarea } = useTareas();
+  const { _id } = tarea;
   const { isDesktop } = useAuth();
   const fechaFormateada = formatearFecha(fechaEntrega);
   const [menuVisible, setMenuVisible] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleCompletarTarea = async () => {
-    await completarTarea(_id);
+    await cambiarEstadoTarea(_id);
     setMenuVisible(false);
   };
 
@@ -60,6 +60,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
               </ModalHeader>
               <ModalBody className="w-full">
                 <form
+                  name="formEditarTareaMobile"
                   className="bg-white py-10 px-5 w-full rounded-lg shadow"
                   onSubmit={(e) => e.preventDefault()}>
                   <div className="mb-5">
@@ -149,10 +150,13 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
         </ModalContent>
       </Modal>
 
-      <div className="flex justify-between items-center py-5 pl-3 lg:pr-5  border-b-2 shadow-sm mb-2 rounded-lg w-full bg-white min-h-36">
+      <li className="flex justify-between items-center py-5 pl-3 lg:pr-5  border-b-2 shadow-sm mb-2 rounded-lg w-full bg-white min-h-36">
         <div className="flex flex-col gap-4 overflow-auto">
           <h2 className="text-lg font-semibold text-gray-800 flex gap-10 items-center">
-            {nombre} <p className="text-gray-500 text-sm text-center">{fechaFormateada}</p>
+            {nombre}{" "}
+            <p className="text-gray-500 text-sm text-center">
+              {fechaFormateada}
+            </p>
           </h2>
 
           <h3>{descripcion}</h3>
@@ -231,8 +235,8 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
             </svg>
           </button>
         </div>
-      </div>
+      </li>
     </>
   );
 };
-export default Tarea;
+export default TareaMobile;

@@ -26,7 +26,7 @@ function App() {
           <AuthProvider>
             <ProyectosProvider>
               <TareasProvider>
-                <ToastContainer closeOnClick pauseOnHover={false} />
+                <ToastContainer closeOnClick pauseOnHover={false} pauseOnFocusLoss={false}/>
                 <Routes>
                   <Route path="/" element={<AuthLayout />}>
                     <Route index element={<Login />} />
