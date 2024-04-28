@@ -26,7 +26,11 @@ function App() {
           <AuthProvider>
             <ProyectosProvider>
               <TareasProvider>
-                <ToastContainer closeOnClick pauseOnHover={false} pauseOnFocusLoss={false}/>
+                <ToastContainer
+                  closeOnClick
+                  pauseOnHover={false}
+                  pauseOnFocusLoss={false}
+                />
                 <Routes>
                   <Route path="/" element={<AuthLayout />}>
                     <Route index element={<Login />} />
@@ -46,9 +50,9 @@ function App() {
                     <Route index element={<Proyectos />}></Route>
                     <Route path="crear-proyectos" element={<NuevoProyecto />} />
                     <Route path=":_id" element={<Proyecto />} />
-                    <Route path=":_id/colaborador" element={<Proyecto />} />
+                    {/* <Route path=":_id/colaborador" element={<Proyecto />} /> */}
                     <Route
-                      path="agregar-colaborador"
+                      path=":_id/agregar-colaborador"
                       element={<AgregarColaborador />}
                     />
                     <Route path="editar-perfil" element={<EditarPerfil />} />

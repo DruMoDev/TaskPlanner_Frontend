@@ -16,10 +16,6 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
     setMenuVisible(false);
   };
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
-
   return (
     <>
       <ModalEditarTarea
@@ -62,7 +58,7 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
           {menuVisible && (
             <div
               className="absolute right-10 -top-11 flex items-center flex-col rounded  border border-black shadow w-[200px] bg-slate-100"
-              // onMouseLeave={() => setMenuVisible(!menuVisible)}
+              onMouseLeave={() => setMenuVisible(!menuVisible)}
             >
               <button
                 onClick={onOpen}
@@ -78,15 +74,7 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
                   <path d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z" />
                 </svg>
               </button>
-              <select
-                value={estado}
-                onChange={(e) => handleCambiarEstado(e.target.value)}
-                className="px-10 flex gap-2 bg-slate-100  text-black font-semiboldbold w-full py-2 items-center justify-center font-bold  transition-all ">
-                <option value="pendiente">Pendiente</option>
-                <option value="enProgreso">En Progreso</option>
-                <option value="enRevisión">En Revisión</option>
-                <option value="terminada">Terminada</option>
-              </select>
+
               <button
                 className="px-4 gap-2 flex  hover:bg-red-600 text-red-600 hover:text-white font-semiboldbold w-full py-2 items-center justify-center font-bold  transition-all"
                 onClick={() => handleEliminarTarea(_id)}>
@@ -100,10 +88,19 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
                   <path d="M7 4V2h10v2h5v2h-2v15a1 1 0 01-1 1H5a1 1 0 01-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z" />
                 </svg>
               </button>
+              <select
+                value={estado}
+                onChange={(e) => handleCambiarEstado(e.target.value)}
+                className=" bg-slate-100 text-slate-800 font-bold  py-2 text-center  transition-all  w-full   focus:outline-none  focus:border-transparent">
+                <option value="pendiente">Pendiente</option>
+                <option value="enProgreso">En Progreso</option>
+                <option value="enRevisión">En Revisión</option>
+                <option value="terminada">Terminada</option>
+              </select>
             </div>
           )}
 
-          <button onClick={toggleMenu} className="flex">
+          <button onClick={() => setMenuVisible(!menuVisible)} className="flex">
             <svg
               viewBox="0 0 21 21"
               fill="currentColor"

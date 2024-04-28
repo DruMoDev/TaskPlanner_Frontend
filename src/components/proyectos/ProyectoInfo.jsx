@@ -44,7 +44,7 @@ const ProyectoInfo = () => {
 
   const handleAgregarColaborador = async () => {
     setColaborador({});
-    navigate("/proyectos/agregar-colaborador");
+    navigate(`/proyectos${"/" + _id}/agregar-colaborador`);
 
     // await agregarColaborador();
   };

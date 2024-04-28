@@ -47,7 +47,9 @@ const PreviewProyecto = ({ proyecto, index, handleEliminar, handleEditar }) => {
                 to={
                   isCreador
                     ? `/proyectos/${_id}`
-                    : `/proyectos/${_id}/colaborador`
+                    : `/proyectos/${_id}`
+                    // : `/proyectos/${_id}/colaborador`
+
                 }>
                 {nombre}
               </Link>

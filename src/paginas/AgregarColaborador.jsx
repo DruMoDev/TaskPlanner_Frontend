@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useProyectos from "../hooks/useProyectos";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 const AgregarColaborador = () => {
   const [email, setEmail] = useState("");
@@ -12,10 +13,22 @@ const AgregarColaborador = () => {
     proyecto,
     obtenerColaboradoresById,
     eliminarColaborador,
+    obtenerProyecto,
+    setProyecto,
   } = useProyectos();
   const { isDesktop } = useAuth();
   const { nombre } = colaborador;
   const [colaboradoresState, setColaboradoresState] = useState([{}]);
+  const params = useParams();
+  const _id = params._id;
+
+  useEffect(() => {
+    obtenerProyecto(_id);
+
+    return () => {
+      setProyecto({});
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,15 +68,17 @@ const AgregarColaborador = () => {
   useEffect(() => {
     const obtenerColaboradores = async () => {
       // Mapear los colaboradores y crear un array de promesas
-      const promesas = proyecto.colaboradores.map(async (colaborador) => {
-        return await obtenerColaboradoresById(colaborador);
-      });
+      if (proyecto.colaboradores) {
+        const promesas = proyecto.colaboradores.map(async (colaborador) => {
+          return await obtenerColaboradoresById(colaborador);
+        });
 
-      // Esperar a que todas las promesas se resuelvan
-      const colaboradores = await Promise.all(promesas);
+        // Esperar a que todas las promesas se resuelvan
+        const colaboradores = await Promise.all(promesas);
 
-      // Actualizar el estado con los colaboradores
-      setColaboradoresState(colaboradores);
+        // Actualizar el estado con los colaboradores
+        setColaboradoresState(colaboradores);
+      }
     };
 
     obtenerColaboradores();
@@ -76,9 +91,10 @@ const AgregarColaborador = () => {
       </h1>
 
       <div className="mt-10 flex justify-center items-center bg-white py-10 px-5 w-3/4 lg:w-2/4 rounded-lg shadow flex-col mx-auto">
-        <form className="flex flex-col" onSubmit={handleSubmit} 
-          name="formAgregarColaborador"
-        >
+        <form
+          className="flex flex-col"
+          onSubmit={handleSubmit}
+          name="formAgregarColaborador">
           <div className="mb-7">
             <label
               className="text-gray-700 uppercase font-bold text-sm lg:text-xl"
@@ -134,7 +150,7 @@ const AgregarColaborador = () => {
           <div className="flex flex-col items-center gap-2">
             {colaboradoresState.map((colaborador) => (
               <div
-                key={colaborador._id}
+                key={colaboradoresState.length}
                 className="text-lg font-semibold bg-white shadow border lg:min-w-[500px] py-1 lg:text-2xl min-w-[300px] lg:pl-10 lg:pr-5 px-3 lg:py-2 flex justify-between items-center">
                 <h4>
                   {colaborador.nombre} - {colaborador.email}
