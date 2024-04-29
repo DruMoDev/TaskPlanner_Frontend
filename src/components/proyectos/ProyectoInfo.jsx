@@ -53,11 +53,8 @@ const ProyectoInfo = () => {
     <>
       <ModalProyectoInfoEditar isOpen={isOpen} onOpenChange={onOpenChange} />
 
-      <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between lg:w-11/12 lg:gap-6">
-        <h1
-          className={`lg:text-4xl text-3xl font-black ${
-            isCreador && "truncate max-w-[200px]"
-          }   lg:max-w-[600px] lg:h-12`}>
+      <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between lg:w-11/12 lg:gap-6 gap-2">
+        <h1 className={`lg:text-4xl text-3xl font-black truncate lg:h-12 lg:max-w-[600px]`}>
           {nombre}
         </h1>
         {isDesktop && (
