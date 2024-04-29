@@ -49,12 +49,12 @@ function App() {
                   <Route path="/proyectos" element={<RutaProtegida />}>
                     <Route index element={<Proyectos />}></Route>
                     <Route path="crear-proyectos" element={<NuevoProyecto />} />
-                    <Route path=":_id" element={<Proyecto />} />
-                    {/* <Route path=":_id/colaborador" element={<Proyecto />} /> */}
-                    <Route
-                      path=":_id/agregar-colaborador"
-                      element={<AgregarColaborador />}
-                    />
+                    <Route path=":_id" element={<Proyecto />}>
+                      <Route
+                        path="agregar-colaborador"
+                        element={<AgregarColaborador />}
+                      />
+                    </Route>
                     <Route path="editar-perfil" element={<EditarPerfil />} />
                   </Route>
                 </Routes>

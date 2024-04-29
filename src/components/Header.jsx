@@ -22,7 +22,7 @@ const Header = () => {
         <Link
           className="text-xl lg:text-3xl text-sky-600 font-black text-center"
           to={"/proyectos"}>
-          UpTask
+          TaskPlanner
         </Link>
 
         <Link

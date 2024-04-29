@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import useProyectos from "../hooks/useProyectos";
 import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
-import { useParams } from "react-router-dom";
 
 const AgregarColaborador = () => {
   const [email, setEmail] = useState("");
@@ -13,22 +12,10 @@ const AgregarColaborador = () => {
     proyecto,
     obtenerColaboradoresById,
     eliminarColaborador,
-    obtenerProyecto,
-    setProyecto,
   } = useProyectos();
   const { isDesktop } = useAuth();
   const { nombre } = colaborador;
   const [colaboradoresState, setColaboradoresState] = useState([{}]);
-  const params = useParams();
-  const _id = params._id;
-
-  useEffect(() => {
-    obtenerProyecto(_id);
-
-    return () => {
-      setProyecto({});
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
