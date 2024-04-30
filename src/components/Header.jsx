@@ -22,7 +22,7 @@ const Header = () => {
         {isDesktop ? (
           <Link to={"/proyectos"}>
             <img
-              src="/public/img/task_planner_logo_removedbg.png"
+              src="/src/img/task_planner_logo_removedbg.png"
               alt="Logo"
               className="h-[60px] py-1"
             />
@@ -30,7 +30,7 @@ const Header = () => {
         ) : (
           <Link to={"/proyectos"}>
             <img
-              src="/public/img/task_planner_logo_solo.png"
+              src="/src/img/task_planner_logo_solo.png"
               alt="Logo"
               className="h-[60px]"
             />
