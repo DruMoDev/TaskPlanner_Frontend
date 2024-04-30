@@ -48,14 +48,13 @@ const PreviewProyecto = ({ proyecto, index, handleEliminar, handleEditar }) => {
                   isCreador
                     ? `/proyectos/${_id}`
                     : `/proyectos/${_id}`
-                    // : `/proyectos/${_id}/colaborador`
 
                 }>
                 {nombre}
               </Link>
               <p
                 className={` px-2 lg:px-3 rounded-full border-black border font-semibold py-1  lg:text-base text-[9px] text-center ${
-                  isCreador ? "bg-purple-400" : "bg-amber-300"
+                  isCreador ? "bg-blue-300" : "bg-fuchsia-300"
                 }`}>
                 {isCreador ? "Creador" : "Colaborador"}
               </p>

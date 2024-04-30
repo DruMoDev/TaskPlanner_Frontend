@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PreviewProyecto from "../components/proyectos/PreviewProyecto";
 import useProyectos from "../hooks/useProyectos";
 
@@ -35,8 +36,9 @@ const Proyectos = () => {
             />
           ))
         ) : (
-          <h4 className="text-center mt-52 text-xl font-bold">
-            Visualiza tus nuevos proyectos aquí.
+          <h4 className="text-center mt-52 text-xl font-bold lg:text-3xl">
+            <Link className="text-sky-700 hover:text-sky-600 hover:underline transition-all" to={"crear-proyectos"}>Crea </Link>
+            tu primer proyecto para empezar a trabajar.
           </h4>
         )}
       </div>

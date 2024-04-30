@@ -5,7 +5,7 @@ import useProyectos from "../hooks/useProyectos";
 import useTareas from "../hooks/useTareas";
 
 const Header = () => {
-  const { iniciales, editarPerfil } = useAuth();
+  const { iniciales, editarPerfil, isDesktop } = useAuth();
   const { setProyecto, setColaborador } = useProyectos();
   const { setTareas } = useTareas();
 
@@ -17,13 +17,25 @@ const Header = () => {
   };
 
   return (
-    <header className="py-2.5 bg-white border-b w-full">
-      <div className="flex items-center mx-auto w-11/12 relative justify-between">
-        <Link
-          className="text-xl lg:text-3xl text-sky-600 font-black text-center"
-          to={"/proyectos"}>
-          TaskPlanner
-        </Link>
+    <header className=" bg-white border-b w-full">
+      <div className="flex items-center mx-auto w-11/12 relative justify-between py-1">
+        {isDesktop ? (
+          <Link to={"/proyectos"}>
+            <img
+              src="/public/img/task_planner_logo_removedbg.png"
+              alt="Logo"
+              className="h-[60px] py-1"
+            />
+          </Link>
+        ) : (
+          <Link to={"/proyectos"}>
+            <img
+              src="/public/img/task_planner_logo_solo.png"
+              alt="Logo"
+              className="h-[60px]"
+            />
+          </Link>
+        )}
 
         <Link
           onClick={() => {
@@ -40,7 +52,7 @@ const Header = () => {
           onClick={() => {
             setMenuOpen(!menuOpen);
           }}
-          className="rounded-full bg-purple-600 h-6 w-6 p-4 text-sm items-center flex justify-center  lg:text-base lg:h-10 lg:w-10 font-bold text-white hover:opacity-80 cursor-pointer transition-all">
+          className="rounded-full bg-amber-600 h-10 w-10 p-4 text-base items-center flex justify-center  lg:text-xl lg:h-14 lg:w-14 font-bold text-white hover:opacity-80 cursor-pointer transition-all">
           {iniciales}
         </div>
         {menuOpen && (
