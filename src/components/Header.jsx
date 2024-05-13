@@ -5,7 +5,7 @@ import useProyectos from "../hooks/useProyectos";
 import useTareas from "../hooks/useTareas";
 
 const Header = () => {
-  const { iniciales, editarPerfil, isDesktop } = useAuth();
+  const { iniciales, isDesktop } = useAuth();
   const { setProyecto, setColaborador } = useProyectos();
   const { setTareas } = useTareas();
 

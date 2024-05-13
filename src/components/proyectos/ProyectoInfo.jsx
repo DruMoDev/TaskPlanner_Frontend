@@ -1,8 +1,6 @@
-import { Progress, useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import useAuth from "../../hooks/useAuth";
 import useProyectos from "../../hooks/useProyectos";
-import progressBar from "../../helpers/progressBar";
-import useTareas from "../../hooks/useTareas";
 import { useNavigate } from "react-router-dom";
 import formatearFecha from "../../helpers/formatearFecha";
 import ModalProyectoInfoEditar from "./ModalProyectoInfoEditar";
@@ -10,7 +8,6 @@ import ModalProyectoInfoEditar from "./ModalProyectoInfoEditar";
 const ProyectoInfo = () => {
   const { proyecto, handleEliminarProyecto, setColaborador } = useProyectos();
   const { auth, isDesktop } = useAuth();
-  const { tareas } = useTareas();
   const navigate = useNavigate();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const isCreador = auth._id === proyecto.creador;
@@ -24,14 +21,6 @@ const ProyectoInfo = () => {
     _id,
     cliente,
   } = proyecto;
-
-  let tareasCompletadas = 0;
-  for (let i = 0; i < tareas.length; i++) {
-    if (tareas[i].estado) {
-      // Si el estado es false
-      tareasCompletadas += 1;
-    }
-  }
 
   const handleEliminar = () => {
     const confirmacion = window.confirm(
@@ -54,18 +43,10 @@ const ProyectoInfo = () => {
       <ModalProyectoInfoEditar isOpen={isOpen} onOpenChange={onOpenChange} />
 
       <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between lg:w-11/12 lg:gap-6 gap-2">
-        <h1 className={`lg:text-4xl text-3xl font-black truncate lg:h-12 lg:max-w-[600px]`}>
+        <h1
+          className={`lg:text-4xl text-3xl font-black truncate lg:h-12 lg:max-w-[1000px]`}>
           {nombre}
         </h1>
-        {isDesktop && (
-          <div className="w-[500px]  font-bold mx-auto">
-            <Progress
-              size="md"
-              value={progressBar(tareas)}
-              label={`Tareas restantes ${tareasCompletadas}/${tareas.length}`}
-            />
-          </div>
-        )}
 
         {isCreador && (
           <div className="flex gap-2 lg:gap-5">
@@ -95,11 +76,12 @@ const ProyectoInfo = () => {
               className="rounded-full px-1 lg:px-6 bg-red-600 font-semiboldbold text-white  flex items-center justify-center uppercase font-bold hover:bg-red-700 transition-colors h-12"
               onClick={handleEliminar}>
               <svg
-                viewBox="0 0 1024 1024"
+                viewBox="0 0 24 24"
                 fill="currentColor"
                 height={`${isDesktop ? "2.4rem" : "1.7rem"}`}
                 width="2.4em">
-                <path d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z" />
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M7 4V2h10v2h5v2h-2v15a1 1 0 01-1 1H5a1 1 0 01-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z" />
               </svg>
             </button>
           </div>
@@ -109,8 +91,8 @@ const ProyectoInfo = () => {
       <div className="w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10 shadow">
         <div className="flex justify-between w-full mb-2">
           <span
-            className={`px-3 rounded-full border-black border font-semibold py-1 text-xs lg:text-base ${
-              isCreador ? "bg-purple-400" : "bg-amber-300"
+            className={`px-3 rounded border-black border font-semibold py-1 text-xs lg:text-base ${
+              isCreador ? "bg-blue-300" : "bg-fuchsia-300"
             }`}>
             {isCreador ? "Creador" : "Colaborador"}
           </span>

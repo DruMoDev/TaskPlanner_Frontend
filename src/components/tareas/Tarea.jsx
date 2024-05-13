@@ -4,10 +4,12 @@ import useTareas from "../../hooks/useTareas";
 import { useState } from "react";
 import ModalEditarTarea from "./ModalEditarTarea";
 
-const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
+const Tarea = ({ tarea, handleEliminarTarea }) => {
   const { nombre, descripcion, prioridad, fechaEntrega, _id, estado } = tarea;
   const { cambiarEstadoTarea } = useTareas();
-  const fechaFormateada = formatearFecha(fechaEntrega);
+
+  const fechaFormateada =
+    fechaEntrega === null ? null : formatearFecha(fechaEntrega);
   const [menuVisible, setMenuVisible] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -24,7 +26,10 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
         tarea={tarea}
       />
 
-      <li className="flex  border-b-2 shadow-sm rounded-lg w-full bg-white min-h-28  relative">
+      <li
+        className={`flex  border-b-2 shadow-sm rounded-lg w-full bg-white min-h-28  relative ${
+          estado === "terminada" && "opacity-50"
+        }`}>
         <div className="flex flex-col overflow-auto pt-3 w-full px-4 pr-7">
           <div className=" flex  justify-between">
             <h2 className="text-md font-semibold text-gray-800">{nombre} </h2>
@@ -42,24 +47,25 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
               </button>
             )}
           </h3>
-          <p
-            className={`text-sm font-semibold  absolute bottom-3 ${
-              prioridad === "Baja"
-                ? "text-green-500"
-                : prioridad === "Media"
-                ? "text-amber-500"
-                : "text-red-500"
-            }`}>
-            {prioridad}
-          </p>
+          {prioridad !== "-- Sin Prioridad --" && (
+            <p
+              className={`text-sm font-semibold  absolute bottom-3 ${
+                prioridad === "Baja"
+                  ? "text-green-500"
+                  : prioridad === "Media"
+                  ? "text-amber-500"
+                  : "text-red-500"
+              }`}>
+              {prioridad}
+            </p>
+          )}
         </div>
 
         <div className="flex absolute place-self-center right-0">
           {menuVisible && (
             <div
               className="absolute right-10 -top-11 flex items-center flex-col rounded  border border-black shadow w-[200px] bg-slate-100"
-              onMouseLeave={() => setMenuVisible(!menuVisible)}
-            >
+              onMouseLeave={() => setMenuVisible(!menuVisible)}>
               <button
                 onClick={onOpen}
                 className={
@@ -118,4 +124,4 @@ const TareaDesktop = ({ tarea, handleEliminarTarea }) => {
     </>
   );
 };
-export default TareaDesktop;
+export default Tarea;

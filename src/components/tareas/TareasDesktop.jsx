@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useTareas from "../../hooks/useTareas";
 import useAuth from "../../hooks/useAuth";
 import ModalCrearTarea from "./ModalCrearTarea";
-import TareaDesktop from "./TareaDesktop";
+import Tarea from "./Tarea";
 
 const TareasDesktop = () => {
   const { eliminarTarea, tareas } = useTareas();
@@ -48,7 +48,6 @@ const TareasDesktop = () => {
     }
   };
 
-  // TODO: Cambiar toda la estructura del componente, hacerlo grid, hacer los estados bien, añadir el draganddrop, hacerlo para movil y pc
   return (
     <>
       <ModalCrearTarea
@@ -83,7 +82,7 @@ const TareasDesktop = () => {
             </h2>
             <ul className="flex flex-col gap-4 mt-2">
               {tareasPendientes.map((tarea) => (
-                <TareaDesktop
+                <Tarea
                   key={tarea._id}
                   tarea={tarea}
                   handleEliminarTarea={handleEliminarTarea}
@@ -98,7 +97,7 @@ const TareasDesktop = () => {
             </h2>
             <ul className="flex flex-col gap-4 mt-2">
               {tareasEnProgreso.map((tarea) => (
-                <TareaDesktop
+                <Tarea
                   key={tarea._id}
                   tarea={tarea}
                   handleEliminarTarea={handleEliminarTarea}
@@ -113,7 +112,7 @@ const TareasDesktop = () => {
             </h2>
             <ul className="flex flex-col gap-4 mt-2">
               {tareasEnRevisión.map((tarea) => (
-                <TareaDesktop
+                <Tarea
                   key={tarea._id}
                   tarea={tarea}
                   handleEliminarTarea={handleEliminarTarea}
@@ -128,7 +127,7 @@ const TareasDesktop = () => {
             </h2>
             <ul className="flex flex-col gap-4 mt-2">
               {tareasTerminadas.map((tarea) => (
-                <TareaDesktop
+                <Tarea
                   key={tarea._id}
                   tarea={tarea}
                   handleEliminarTarea={handleEliminarTarea}

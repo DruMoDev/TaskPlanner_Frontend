@@ -6,53 +6,46 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import Alerta from "../Alerta";
 import useAuth from "../../hooks/useAuth";
 import useProyectos from "../../hooks/useProyectos";
 import { useEffect, useState } from "react";
-import formatearFecha from "../../helpers/formatearFecha";
+import { formatearFechaBrowser } from "../../helpers/formatearFecha";
 import useTareas from "../../hooks/useTareas";
+import { toast } from "react-toastify";
 
 const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
   const { isDesktop } = useAuth();
   const { crearTarea } = useTareas();
 
-  const { proyecto, mostrarAlerta, alerta } = useProyectos();
+  const { proyecto } = useProyectos();
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [prioridad, setPrioridad] = useState("Baja");
+  const [prioridad, setPrioridad] = useState("-- Sin Prioridad --");
   const [actualizarTareas, setActualizarTareas] = useState(false);
-  const [fechaDeEntrega, setFechaDeEntrega] = useState("");
+  const [fechaEntrega, setFechaEntrega] = useState(null);
 
   useEffect(() => {
     if (!isOpen) {
-      const partesFecha = formatearFecha(Date.now()).split("/");
-      const fechaReordenada = [partesFecha[2], partesFecha[1], partesFecha[0]];
-      mostrarAlerta({});
       setNombre("");
       setDescripcion("");
-      setPrioridad("Baja");
-      setFechaDeEntrega(fechaReordenada.join("-"));
+      setPrioridad("-- Sin Prioridad --");
+      setFechaEntrega(null);
     }
   }, [isOpen]);
 
   useEffect(() => {
-    const partesFecha = formatearFecha(Date.now()).split("/");
-    const fechaReordenada = [partesFecha[2], partesFecha[1], partesFecha[0]];
     setNombre("");
     setDescripcion("");
-    setPrioridad("Baja");
-    setFechaDeEntrega(fechaReordenada.join("-"));
+    setPrioridad("-- Sin Prioridad --");
+    setFechaEntrega(null);
     onClose();
   }, [actualizarTareas]);
 
-  const handleCrear = async () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
-      if (
-        [nombre, descripcion, prioridad].includes("") &&
-        fechaDeEntrega.length < 10
-      ) {
-        mostrarAlerta({ msg: "Faltan campos por completar", error: true });
+      if ([nombre, descripcion].includes("")) {
+        toast.error("Faltan campos por completar");
         return;
       }
       const datos = {
@@ -60,17 +53,15 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
         descripcion,
         prioridad,
         proyecto: proyecto._id,
-        fechaEntrega: fechaDeEntrega,
+        fechaEntrega,
       };
 
-      await crearTarea(datos);
+      crearTarea(datos);
       setActualizarTareas((actualizarTareas) => !actualizarTareas);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const { msg } = alerta;
 
   return (
     <Modal
@@ -86,11 +77,10 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
               Crear Tarea{" "}
             </ModalHeader>
             <ModalBody className="w-full">
-              {msg && <Alerta alerta={alerta} />}
               <form
                 name="formCrearTarea"
                 className="bg-white py-10 px-5 w-full rounded-lg shadow"
-                onSubmit={(e) => e.preventDefault()}>
+                onSubmit={handleSubmit}>
                 <div className="mb-5">
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
@@ -136,9 +126,10 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
                     type="date"
                     id="fecha-entrega"
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    value={fechaDeEntrega}
+                    value={fechaEntrega}
                     onChange={(e) => {
-                      setFechaDeEntrega(e.target.value);
+                      console.log(e.target.value);
+                      setFechaEntrega(e.target.value);
                     }}
                   />
                 </div>
@@ -147,7 +138,7 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
                   <label
                     className="text-gray-700 uppercase font-bold text-sm"
                     htmlFor="prioridad">
-                    Prioridad{" "}
+                    Prioridad
                   </label>
                   <select
                     id="prioridad"
@@ -156,6 +147,9 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
                     onChange={(e) => {
                       setPrioridad(e.target.value);
                     }}>
+                    <option value="-- Sin Prioridad --">
+                      -- Sin Prioridad --
+                    </option>
                     <option value="Baja">Baja</option>
                     <option value="Media">Media</option>
                     <option value="Alta">Alta</option>
@@ -167,11 +161,7 @@ const ModalCrearTarea = ({ isOpen, onOpenChange, onClose }) => {
               <Button color="danger" variant="light" onPress={onClose}>
                 Cancelar
               </Button>
-              <Button
-                color="primary"
-                onPress={() => {
-                  handleCrear();
-                }}>
+              <Button color="primary" type="submit" onClick={handleSubmit}>
                 Crear
               </Button>
             </ModalFooter>
