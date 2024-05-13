@@ -3,15 +3,12 @@ import ProyectoInfo from "../components/proyectos/ProyectoInfo";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useTareas from "../hooks/useTareas";
-import TareasDesktop from "../components/tareas/TareasDesktop";
-import useAuth from "../hooks/useAuth";
-import TareasMobile from "../components/tareas/TareasMobile";
+import TareasList from "../components/tareas/TareasList";
 
 const Proyecto = () => {
   const [isAgregarColaborador, setIsAgregarColaborador] = useState(false);
   const { proyecto, obtenerProyecto, setProyecto } = useProyectos();
   const { obtenerTarea, setTareas } = useTareas();
-  const { isDesktop } = useAuth();
   const params = useParams();
   const _id = params._id;
   const { pathname } = useLocation();
@@ -40,7 +37,7 @@ const Proyecto = () => {
           ) : (
             <>
               <ProyectoInfo />
-              {isDesktop ? <TareasDesktop /> : <TareasMobile />}
+              <TareasList />
             </>
           )}
         </>

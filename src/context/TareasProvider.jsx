@@ -41,6 +41,7 @@ const TareasProvider = ({ children }) => {
         return objeto._id !== id;
       });
       setTareas([...tareasActualizadas]);
+      toast.success("Tarea eliminada correctamente");
     } catch (error) {
       console.log(error);
     }

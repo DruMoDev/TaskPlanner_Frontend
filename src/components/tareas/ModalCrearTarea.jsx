@@ -9,7 +9,6 @@ import {
 import useAuth from "../../hooks/useAuth";
 import useProyectos from "../../hooks/useProyectos";
 import { useEffect, useState } from "react";
-import { formatearFechaBrowser } from "../../helpers/formatearFecha";
 import useTareas from "../../hooks/useTareas";
 import { toast } from "react-toastify";
 

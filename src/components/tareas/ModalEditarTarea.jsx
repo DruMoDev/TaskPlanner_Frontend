@@ -91,7 +91,7 @@ const ModalEditarTarea = ({ onOpenChange, isOpen, tarea }) => {
                     type="date"
                     id="fecha-entrega"
                     className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                    value={formFecha(fechaEntrega)}
+                    value={fechaEntrega && formFecha(fechaEntrega)}
                     onChange={(e) => {
                       setFechaEntrega(e.target.value);
                     }}
@@ -111,6 +111,9 @@ const ModalEditarTarea = ({ onOpenChange, isOpen, tarea }) => {
                     onChange={(e) => {
                       setPrioridad(e.target.value);
                     }}>
+                    <option value="-- Sin Prioridad --">
+                      -- Sin Prioridad --
+                    </option>
                     <option value="Baja">Baja</option>
                     <option value="Media">Media</option>
                     <option value="Alta">Alta</option>
