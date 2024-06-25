@@ -26,8 +26,7 @@ const Header = () => {
               src="https://res.cloudinary.com/dpjbtovxz/image/upload/TaskPlanner/task_planner_logo_removedbg_n7nsbu.jpg"
               alt="Logo"
               className="h-[60px] py-1"
-            />
-            Hola
+            />            
           </Link>
         ) : (
           <Link to={"/proyectos"}>
