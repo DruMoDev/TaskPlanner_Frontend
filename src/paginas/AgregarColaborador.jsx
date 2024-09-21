@@ -135,9 +135,9 @@ const AgregarColaborador = () => {
         </h2>
         {colaboradoresState && (
           <div className="flex flex-col items-center gap-2">
-            {colaboradoresState.map((colaborador) => (
+            {colaboradoresState.map((colaborador, index) => (
               <div
-                key={colaboradoresState.length}
+                key={index}
                 className="text-lg font-semibold bg-white shadow border lg:min-w-[500px] py-1 lg:text-2xl min-w-[300px] lg:pl-10 lg:pr-5 px-3 lg:py-2 flex justify-between items-center">
                 <h4>
                   {colaborador.nombre} - {colaborador.email}

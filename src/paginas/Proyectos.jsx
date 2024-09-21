@@ -24,9 +24,7 @@ const Proyectos = () => {
   };
 
   return (
-    <>
-    //TODO: añadir nombre
-      <h1 className="lg:text-4xl text-2xl font-black lg:ml-0 ml-5">{auth}</h1>
+    <>    
       <h1 className="lg:text-4xl text-2xl font-black lg:ml-0 ml-5">
         Proyectos
       </h1>
