@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import PreviewProyecto from "../components/proyectos/PreviewProyecto";
 import useProyectos from "../hooks/useProyectos";
+import useAuth from "../hooks/useAuth";
 
 const Proyectos = () => {
   const { proyectos, handleEliminarProyecto, handleEditarProyecto } =
     useProyectos();
+  const { auth } = useAuth();
+  console.log(auth);
+  
 
   const handleEliminar = (_id) => {
     const confirmacion = window.confirm(
@@ -21,6 +25,8 @@ const Proyectos = () => {
 
   return (
     <>
+    //TODO: añadir nombre
+      <h1 className="lg:text-4xl text-2xl font-black lg:ml-0 ml-5">{auth}</h1>
       <h1 className="lg:text-4xl text-2xl font-black lg:ml-0 ml-5">
         Proyectos
       </h1>
@@ -37,7 +43,11 @@ const Proyectos = () => {
           ))
         ) : (
           <h4 className="text-center mt-52 text-xl font-bold lg:text-3xl">
-            <Link className="text-sky-700 hover:text-sky-600 hover:underline transition-all" to={"crear-proyectos"}>Crea </Link>
+            <Link
+              className="text-sky-700 hover:text-sky-600 hover:underline transition-all"
+              to={"crear-proyectos"}>
+              Crea{" "}
+            </Link>
             tu primer proyecto para empezar a trabajar.
           </h4>
         )}
