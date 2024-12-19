@@ -30,19 +30,19 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
         className={`flex  border-b-2 shadow-sm rounded-lg w-full bg-white min-h-28  relative ${
           estado === "terminada" && "opacity-50"
         }`}>
-        <div className="flex flex-col overflow-auto pt-3 w-full px-4 pr-7">
-          <div className=" flex  justify-between">
-            <h2 className="text-md font-semibold text-gray-800">{nombre} </h2>
-            <p className="text-slate-500 text-sm">{fechaFormateada}</p>
+        <div className="flex flex-col w-full px-4 pt-3 overflow-auto pr-7">
+          <div className="flex justify-between ">
+            <h2 className="font-semibold text-gray-800 text-md">{nombre} </h2>
+            <p className="text-sm text-slate-500">{fechaFormateada}</p>
           </div>
 
-          <h3 className="text-sm text-slate-500 mt-1 mb-10 mr-3">
+          <h3 className="mt-1 mb-10 mr-3 text-sm text-slate-500">
             {descripcion ? (
               descripcion
             ) : (
               <button
                 onClick={onOpen}
-                className="italic text-blue-600 underline font-semibold opacity-40 hover:opacity-100 transition-all">
+                className="italic font-semibold text-blue-600 underline transition-all opacity-40 hover:opacity-100">
                 Añadir una descripción
               </button>
             )}
@@ -61,7 +61,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
           )}
         </div>
 
-        <div className="flex absolute place-self-center right-0">
+        <div className="relative flex pr-4 place-self-center">
           {menuVisible && (
             <div
               className="absolute right-10 -top-11 flex items-center flex-col rounded  border border-black shadow w-[200px] bg-slate-100"
@@ -82,7 +82,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
               </button>
 
               <button
-                className="px-4 gap-2 flex  hover:bg-red-600 text-red-600 hover:text-white font-semiboldbold w-full py-2 items-center justify-center font-bold  transition-all"
+                className="flex items-center justify-center w-full gap-2 px-4 py-2 font-bold text-red-600 transition-all hover:bg-red-600 hover:text-white font-semiboldbold"
                 onClick={() => handleEliminarTarea(_id)}>
                 <p>Eliminar</p>
                 <svg
@@ -97,7 +97,7 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
               <select
                 value={estado}
                 onChange={(e) => handleCambiarEstado(e.target.value)}
-                className=" bg-slate-100 text-slate-800 font-bold  py-2 text-center  transition-all  w-full   focus:outline-none  focus:border-transparent">
+                className="w-full py-2 font-bold text-center transition-all bg-slate-100 text-slate-800 focus:outline-none focus:border-transparent">
                 <option value="pendiente">Pendiente</option>
                 <option value="enProgreso">En Progreso</option>
                 <option value="enRevisión">En Revisión</option>
@@ -106,17 +106,21 @@ const Tarea = ({ tarea, handleEliminarTarea }) => {
             </div>
           )}
 
-          <button onClick={() => setMenuVisible(!menuVisible)} className="flex">
+          <button onClick={() => setMenuVisible(!menuVisible)} className="absolute px-0 py-0 text-black -translate-y-1/2 right-2 top-1/2">
             <svg
-              viewBox="0 0 21 21"
-              fill="currentColor"
-              height="2.2rem"
-              width="2.2rem">
-              <g fill="currentColor" fillRule="evenodd">
-                <path d="M11.5 10.5 A1 1 0 0 1 10.5 11.5 A1 1 0 0 1 9.5 10.5 A1 1 0 0 1 11.5 10.5 z" />
-                <path d="M11.5 5.5 A1 1 0 0 1 10.5 6.5 A1 1 0 0 1 9.5 5.5 A1 1 0 0 1 11.5 5.5 z" />
-                <path d="M11.5 15.5 A1 1 0 0 1 10.5 16.5 A1 1 0 0 1 9.5 15.5 A1 1 0 0 1 11.5 15.5 z" />
-              </g>
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-5 lucide lucide-menu">
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="6" y2="6" />
+              <line x1="4" x2="20" y1="18" y2="18" />
             </svg>
           </button>
         </div>
