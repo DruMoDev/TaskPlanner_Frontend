@@ -12,7 +12,7 @@ const RutaProtegida = () => {
       {auth._id ? (
         <div className="font-sans">
           <Header />
-            <main className="container mx-auto pt-10 md:min-h-screen">
+            <main className="container pt-10 mx-auto">
               <Outlet />
             </main>
         </div>

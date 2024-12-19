@@ -42,84 +42,105 @@ const ProyectoInfo = () => {
     <>
       <ModalProyectoInfoEditar isOpen={isOpen} onOpenChange={onOpenChange} />
 
-      <div className="flex mb-10 items-center mx-auto px-5 lg:px-0 justify-between lg:w-11/12 lg:gap-6 gap-2">
+      <div className="flex items-center justify-between gap-2 px-5 mx-auto mb-10 lg:px-0 lg:gap-6">
         <h1
           className={`lg:text-4xl text-3xl font-black truncate lg:h-12 lg:max-w-[1000px]`}>
           {nombre}
         </h1>
 
         {isCreador && (
-          <div className="flex gap-2 lg:gap-5">
+          <div className="flex items-center justify-center gap-2 lg:gap-5">
             <button
               onClick={handleAgregarColaborador}
-              className="rounded-full px-1 lg:px-6 bg-sky-600 font-semiboldbold flex text-white items-center justify-center font-bold hover:bg-sky-700 transition-colors  h-12">
+              className="bg-green-500 hover:bg-green-600">
               <svg
-                viewBox="0 0 1024 1024"
-                fill="currentColor"
-                height={`${isDesktop ? "3rem" : "1.8rem"}`}
-                width="2.7em">
-                <path d="M892 772h-80v-80c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v80h-80c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h80v80c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-80h80c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8zM373.5 498.4c-.9-8.7-1.4-17.5-1.4-26.4 0-15.9 1.5-31.4 4.3-46.5.7-3.6-1.2-7.3-4.5-8.8-13.6-6.1-26.1-14.5-36.9-25.1a127.54 127.54 0 01-38.7-95.4c.9-32.1 13.8-62.6 36.3-85.6 24.7-25.3 57.9-39.1 93.2-38.7 31.9.3 62.7 12.6 86 34.4 7.9 7.4 14.7 15.6 20.4 24.4 2 3.1 5.9 4.4 9.3 3.2 17.6-6.1 36.2-10.4 55.3-12.4 5.6-.6 8.8-6.6 6.3-11.6-32.5-64.3-98.9-108.7-175.7-109.9-110.8-1.7-203.2 89.2-203.2 200 0 62.8 28.9 118.8 74.2 155.5-31.8 14.7-61.1 35-86.5 60.4-54.8 54.7-85.8 126.9-87.8 204a8 8 0 008 8.2h56.1c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5 29.4-29.4 65.4-49.8 104.7-59.7 3.8-1.1 6.4-4.8 5.9-8.8zM824 472c0-109.4-87.9-198.3-196.9-200C516.3 270.3 424 361.2 424 472c0 62.8 29 118.8 74.2 155.5a300.95 300.95 0 00-86.4 60.4C357 742.6 326 814.8 324 891.8a8 8 0 008 8.2h56c4.3 0 7.9-3.4 8-7.7 1.9-58 25.4-112.3 66.7-153.5C505.8 695.7 563 672 624 672c110.4 0 200-89.5 200-200zm-109.5 90.5C690.3 586.7 658.2 600 624 600s-66.3-13.3-90.5-37.5a127.26 127.26 0 01-37.5-91.8c.3-32.8 13.4-64.5 36.3-88 24-24.6 56.1-38.3 90.4-38.7 33.9-.3 66.8 12.9 91 36.6 24.8 24.3 38.4 56.8 38.4 91.4-.1 34.2-13.4 66.3-37.6 90.5z" />
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-user-plus size-6">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <line x1="19" x2="19" y1="8" y2="14" />
+                <line x1="22" x2="16" y1="11" y2="11" />
+              </svg>
+            </button>
+            <button onClick={onOpen} className="bg-sky-600 hover:bg-sky-700">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-6 lucide lucide-pencil">
+                <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                <path d="m15 5 4 4" />
               </svg>
             </button>
             <button
-              onClick={onOpen}
-              className="rounded-full px-1 lg:px-6 h-12 bg-sky-600 font-semiboldbold  flex text-white items-center justify-center uppercase font-bold hover:bg-sky-700 transition-colors">
-              <svg
-                viewBox="0 0 1024 1024"
-                fill="currentColor"
-                height={`${isDesktop ? "2.4rem" : "1.7rem"}`}
-                width="2.4em">
-                <path d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z" />
-              </svg>
-            </button>
-            <button
-              className="rounded-full px-1 lg:px-6 bg-red-600 font-semiboldbold text-white  flex items-center justify-center uppercase font-bold hover:bg-red-700 transition-colors h-12"
+              className="bg-red-500 hover:bg-red-600"
               onClick={handleEliminar}>
               <svg
+                xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                height={`${isDesktop ? "2.4rem" : "1.7rem"}`}
-                width="2.4em">
-                <path fill="none" d="M0 0h24v24H0z" />
-                <path d="M7 4V2h10v2h5v2h-2v15a1 1 0 01-1 1H5a1 1 0 01-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z" />
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-trash size-6">
+                <path d="M3 6h18" />
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
               </svg>
             </button>
           </div>
         )}
       </div>
 
-      <div className="w-11/12 mx-auto flex flex-col bg-white rounded p-5 lg:px-10 shadow">
+      <div className="flex flex-col w-11/12 p-5 mx-auto bg-white rounded shadow lg:px-10">
         <div className="flex justify-between w-full mb-2">
           <span
-            className={`px-3 rounded border-black border font-semibold py-1 text-xs lg:text-base ${
-              isCreador ? "bg-blue-300" : "bg-fuchsia-300"
+            className={`rounded-3xl px-3 py-1 font-semibold ${
+              isCreador
+                ? "bg-blue-200/60 text-blue-600"
+                : "bg-fuchsia-200/60 text-fuchsia-600"
             }`}>
             {isCreador ? "Creador" : "Colaborador"}
           </span>
           {isDesktop && (
-            <div className="w-full flex justify-end gap-5">
-              <p className="text-default-500 text-sm italic">
+            <div className="flex justify-end w-full gap-5">
+              <p className="text-sm italic text-default-500">
                 Creado:{" "}
-                <span className=" ">{createdAt && createdAt.slice(0, 10)}</span>
+                <span className="">{createdAt && createdAt.slice(0, 10)}</span>
               </p>
-              <p className="text-default-500 text-sm italic">
+              <p className="text-sm italic text-default-500">
                 Última edición:{" "}
                 <span>{updatedAt && updatedAt.slice(0, 10)}</span>
               </p>
             </div>
           )}
         </div>
-        <div className="mb-5 text-xl lg:text-2xl font-light">
+        <div className="mb-5 text-xl font-light lg:text-2xl">
           <p>
             Cliente: <span className="font-bold">{cliente}</span>
           </p>
         </div>
-        <div className="mb-5 text-xl lg:text-2xl font-light">
+        <div className="mb-5 text-xl font-light lg:text-2xl">
           <p>
             Descripción: <span className="font-bold">{descripcion}</span>
           </p>
         </div>
-        <div className="mb-5 text-xl lg:text-2xl font-light">
+        <div className="mb-5 text-xl font-light lg:text-2xl">
           <p>
             Fecha de entrega:{" "}
             <span className="font-bold">
